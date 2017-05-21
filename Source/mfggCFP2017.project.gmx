@@ -6,10 +6,49 @@
   <NewExtensions/>
   <sounds name="sound"/>
   <sprites name="sprites">
-    <sprite>sprites\spr_actuallynothing</sprite>
+    <sprites name="Players">
+      <sprite>sprites\spr_player_mask</sprite>
+      <sprites name="Player 1">
+        <sprite>sprites\spr_player1_stop</sprite>
+        <sprite>sprites\spr_player1_walk</sprite>
+        <sprite>sprites\spr_player1_jump</sprite>
+        <sprite>sprites\spr_player1_skid</sprite>
+        <sprite>sprites\spr_player1_stun</sprite>
+      </sprites>
+    </sprites>
+    <sprites name="Collision">
+      <sprite>sprites\spr_solid</sprite>
+      <sprite>sprites\spr_jumpthrough</sprite>
+      <sprite>sprites\spr_slopeR_1x</sprite>
+      <sprite>sprites\spr_slopeL_1x</sprite>
+    </sprites>
   </sprites>
   <backgrounds name="background"/>
   <paths name="paths"/>
+  <scripts name="scripts">
+    <scripts name="Movement and Collision">
+      <script>scripts\scr_cmove_init.gml</script>
+      <script>scripts\scr_cmove_step.gml</script>
+      <script>scripts\scr_collision.gml</script>
+      <script>scripts\scr_decconv.gml</script>
+      <script>scripts\scr_inair.gml</script>
+      <script>scripts\scr_spdosc_timer.gml</script>
+    </scripts>
+  </scripts>
+  <objects name="objects">
+    <object>objects\obj_hud</object>
+    <object>objects\obj_player</object>
+    <objects name="Collision">
+      <object>objects\obj_solid</object>
+      <object>objects\obj_jumpthrough</object>
+      <object>objects\par_slope</object>
+      <object>objects\obj_slopeR_1x</object>
+      <object>objects\obj_slopeL_1x</object>
+    </objects>
+  </objects>
+  <rooms name="rooms">
+    <room>rooms\rm_test</room>
+  </rooms>
   <help>
     <rtf>help.rtf</rtf>
   </help>
