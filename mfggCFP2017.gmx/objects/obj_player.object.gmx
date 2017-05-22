@@ -30,12 +30,14 @@ c_gravity = 0.3;
 image_speed = 0.3;
 dir1 = 1;
 max_speed = 1;
+jumping = 0;
 
 //Physics Constants
 phy_walkspeed = 1;
 phy_runspeed = 2;
 phy_acceleration = .2;
 phy_deceleration = .2;
+phy_deceleration_air = .1;
 phy_jumpheight = 5;
 
 //Input Constants (will move these later)
@@ -71,6 +73,7 @@ global.p1_c = ord("C");
             <kind>1</kind>
             <string>//Movement
 if keyboard_check(global.p1_left)
+&amp;&amp; not keyboard_check(global.p1_right)
 c_hspeed = max(c_hspeed-phy_acceleration,-max_speed);
 
 if keyboard_check(global.p1_right)
@@ -79,14 +82,43 @@ c_hspeed = min(c_hspeed+phy_acceleration,max_speed);
 //Stopping
 if (not keyboard_check(global.p1_left) &amp;&amp; not keyboard_check(global.p1_right))
 &amp;&amp; abs(c_hspeed) &gt; 0
-c_hspeed -= phy_deceleration*sign(c_hspeed);
+ {
+ //Deceleration in the air
+ if in_air
+  {
+  if c_hspeed &lt; 0
+  c_hspeed = min(c_hspeed+phy_deceleration_air,0);
+  if c_hspeed &gt; 0
+  c_hspeed = max(c_hspeed-phy_deceleration_air,0);
+  }
+ 
+ //Deceleration on the ground
+ else
+  {
+  if c_hspeed &lt; 0
+  c_hspeed = min(c_hspeed+phy_deceleration,0);
+  if c_hspeed &gt; 0
+  c_hspeed = max(c_hspeed-phy_deceleration,0);
+  }
+ }
 
 //Jumping
 if keyboard_check_pressed(global.p1_a)
 &amp;&amp; not in_air
  {
+ jumping = 1;
  c_vspeed = -phy_jumpheight;
  }
+ 
+//Variable Jump
+if not keyboard_check(global.p1_a)
+&amp;&amp; c_vspeed &lt; 0
+&amp;&amp; jumping
+c_vspeed += .2;
+
+//Reset Jumping Flag
+if c_vspeed &gt;= 0
+jumping = 0;
  
 //Running
 if keyboard_check(global.p1_b)
@@ -108,7 +140,7 @@ if y+sprite_height &gt; room_height
 y = 0-sprite_height;
 
 //Vertical Speed Cap
-c_vspeed = min(c_vspeed,32);
+c_vspeed = min(c_vspeed,6);
 
 //Custom Movement System (Goes Last)
 //Argument decides whether or not to evaluate collision
