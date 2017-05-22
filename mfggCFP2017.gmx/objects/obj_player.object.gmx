@@ -31,6 +31,7 @@ image_speed = 0.3;
 dir1 = 1;
 max_speed = 1;
 jumping = 0;
+vertWrap = 208+32;
 
 //Physics Constants
 phy_walkspeed = 1;
@@ -135,10 +136,6 @@ c_hspeed -= .1*sign(c_hspeed);
 if c_hspeed != 0
 dir1 = sign(c_hspeed);
 
-//Crude screen wrap
-if y+sprite_height &gt; room_height
-y = 0-sprite_height;
-
 //Vertical Speed Cap
 c_vspeed = min(c_vspeed,6);
 
@@ -148,9 +145,15 @@ x += room_width;
 else if (x &gt; room_width)
 x -= room_width;
 
+if (y &lt; 0)
+y += vertWrap;
+else if (y &gt; 208)
+y -= vertWrap;
+
 //Custom Movement System (Goes Last)
 //Argument decides whether or not to evaluate collision
 scr_cmove_step(1);
+
 </string>
           </argument>
         </arguments>
@@ -206,8 +209,9 @@ else
           <argument>
             <kind>1</kind>
             <string>///Draws the Sprites
-
 draw_sprite_ext(sprite_index,image_index,x,y,dir1,1,0,c_white,image_alpha);
+
+//Horizontal wrapping
 if (x &lt; (abs(sprite_width/2)))
 || (x &gt; room_width-(abs(sprite_width/2))) {
 
@@ -216,6 +220,16 @@ if (x &lt; (abs(sprite_width/2)))
     else if (x &gt; room_width-(abs(sprite_width/2)))
         draw_sprite_ext(sprite_index,-1,x-room_width,y,dir1,1,0,c_white,image_alpha);
 }
+
+if (y &lt; (abs(sprite_height/2)))
+|| (y &gt; vertWrap-(abs(sprite_height/2))) {
+
+    if (y &lt; (abs(sprite_height/2)))
+        draw_sprite_ext(sprite_index,0,x,y+vertWrap,dir1,1,0,c_white,image_alpha);
+    else if (y &gt; vertWrap-(abs(sprite_width/2)))
+        draw_sprite_ext(sprite_index,0,x,y-vertWrap,dir1,1,0,c_white,image_alpha);
+}
+
 </string>
           </argument>
         </arguments>
