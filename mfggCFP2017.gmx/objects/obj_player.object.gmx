@@ -33,6 +33,7 @@ max_speed = 1;
 jumping = 0;
 vertWrap = 208+32;
 raisePixels = 0;
+slopeVOff = 0;
 
 //Physics Constants
 phy_walkspeed = 1;
@@ -177,6 +178,7 @@ scr_cmove_step(1);
             <kind>1</kind>
             <string>///Sprites
 if in_air
+&amp;&amp; slopeVOff = 0
 sprite_index = spr_player1_jump;
 
 else

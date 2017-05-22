@@ -1,5 +1,34 @@
 var col_phase = 0;
 
+if c_vspeed > 1{
+    if collision_rectangle(bbox_left,bbox_bottom,bbox_right,bbox_bottom+8,obj_slopeR_1x,false,false)
+    || collision_rectangle(bbox_left,bbox_bottom,bbox_right,bbox_bottom+8,obj_slopeL_1x,false,false){
+        slopeVOff = 1;
+    }
+    
+    if collision_rectangle(bbox_left,bbox_bottom,bbox_right,bbox_bottom+8,obj_slopeR_2x,false,false)
+    || collision_rectangle(bbox_left,bbox_bottom,bbox_right,bbox_bottom+8,obj_slopeL_2x,false,false){
+        slopeVOff = 1;
+    }
+    
+    if collision_rectangle(bbox_left,bbox_bottom,bbox_right,bbox_bottom+8,obj_slopeL_05x,true,true){
+        if collision_rectangle(bbox_left,bbox_bottom,bbox_right,bbox_bottom+8,obj_slopeL_05x,true,true).x+8 < self.x{
+            slopeVOff = -8;
+        } else {
+            slopeVOff = 0;
+        }
+    }
+    if collision_rectangle(bbox_left,bbox_bottom,bbox_right,bbox_bottom+8,obj_slopeR_05x,true,true){
+        if collision_rectangle(bbox_left,bbox_bottom,bbox_right,bbox_bottom+8,obj_slopeR_05x,true,true).x+8 > self.x{
+            slopeVOff = -8;
+        } else {
+            slopeVOff = 0;
+        }
+    }
+} else {
+    slopeVOff = 0;
+}
+
 repeat(2)
  {
  var currentsolid_up = collision_rectangle(bbox_left,bbox_top-1,bbox_right,bbox_top-1,obj_solid,false,true);
@@ -9,12 +38,12 @@ repeat(2)
  var current_jt = collision_rectangle(bbox_left,bbox_bottom+1,bbox_right,bbox_bottom+1,obj_jumpthrough,false,true);
 
  var currentslope_up = collision_rectangle(bbox_left,bbox_top-1,bbox_right,bbox_top-1,par_slope,true,true);
- var currentslope_down = collision_rectangle(bbox_left,bbox_bottom+1,bbox_right,bbox_bottom+1,par_slope,true,true);
- var currentslope_down2 = collision_rectangle(bbox_left,bbox_bottom,bbox_right,bbox_bottom,par_slope,true,true);
+ var currentslope_down = collision_rectangle(bbox_left,bbox_bottom+1-slopeVOff,bbox_right,bbox_bottom+1-slopeVOff,par_slope,true,true);
+ var currentslope_down2 = collision_rectangle(bbox_left,bbox_bottom-slopeVOff,bbox_right,bbox_bottom-slopeVOff,par_slope,true,true);
  var currentslope_down_id = self.id;
  var currentslope_down2_id = self.id;
- var currentslope_left = collision_rectangle(bbox_left-1,bbox_top,bbox_left-1,bbox_bottom-1,par_slope,true,true);
- var currentslope_right = collision_rectangle(bbox_right+1,bbox_top,bbox_right+1,bbox_bottom-2,par_slope,true,true);
+ var currentslope_left = collision_rectangle(bbox_left-1,bbox_top,bbox_left-1,bbox_bottom-1-slopeVOff,par_slope,true,true);
+ var currentslope_right = collision_rectangle(bbox_right+1,bbox_top,bbox_right+1,bbox_bottom-2-slopeVOff,par_slope,true,true);
 
  if col_phase == 1
   {
@@ -90,18 +119,6 @@ repeat(2)
    if c_vspeed >= 0
    c_vspeed = 0
    }
-   
-  /*if currentslope_down = 1{
-    currentslope_down_id = collision_rectangle(bbox_left,bbox_bottom+1,bbox_right,bbox_bottom+1,par_slope,true,true).id;
-  } else {
-    currentslope_down_id = self.id;
-  }
-  
-  if currentslope_down2 = 1{
-    currentslope_down2_id = collision_rectangle(bbox_left,bbox_bottom,bbox_right,bbox_bottom,par_slope,true,true).id;
-  } else {
-    currentslope_down2_id = self.id;
-  }*/
   
   if collision_rectangle(bbox_left,bbox_bottom,bbox_right,bbox_bottom,currentslope_down2,false,true)
   y -= collision_rectangle(bbox_left,bbox_bottom,bbox_right,bbox_bottom,currentslope_down2,false,true).raisePixels;
