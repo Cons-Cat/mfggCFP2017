@@ -80,15 +80,54 @@ if infowindow_open
  {
  draw_set_alpha(0.7);
  draw_set_color(c_black);
- draw_rectangle(0,0,192,view_hview,0);
+ draw_rectangle(0,0,192,display_get_gui_height(),0);
 
  draw_set_color(c_white);
  draw_set_alpha(1);
  draw_text(8,8,"[Player 1]#c_hspeed: "+string(obj_player.c_hspeed)
  +"#c_vspeed: "+string(obj_player.c_vspeed)
+ +"#c_hspeed_last: "+string(obj_player.c_hspeed_last)
+ +"#c_vspeed_last: "+string(obj_player.c_vspeed_last)
+ +"#add_x: "+string(obj_player.add_x)
+ +"#add_y: "+string(obj_player.add_y)
+ +"#x difference: "+string(x-xprevious)
+ +"#y difference: "+string(y-yprevious)
  +"#in_air: "+string(obj_player.in_air)
  +"#jumping: "+string(obj_player.jumping)
  +"#dir1: "+string(obj_player.dir1));
+ }
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="8" enumb="0">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>if infowindow_open
+ {
+ //Draws Mario's sprite origin
+ draw_set_color(choose(c_white,c_gray));
+ draw_line(obj_player.x-1,obj_player.y-1,obj_player.x+1,obj_player.y+1);
+ draw_line(obj_player.x+1,obj_player.y-1,obj_player.x-1,obj_player.y+1);
+ 
+ //Draw Mario's bounding box
+ draw_set_color(c_red);
+ draw_rectangle(obj_player.bbox_left,obj_player.bbox_top,obj_player.bbox_right,obj_player.bbox_bottom,1);
  }
 </string>
           </argument>

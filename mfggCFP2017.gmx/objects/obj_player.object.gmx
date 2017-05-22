@@ -107,7 +107,7 @@ if (not keyboard_check(global.p1_left) &amp;&amp; not keyboard_check(global.p1_r
 
 //Jumping
 if keyboard_check_pressed(global.p1_a)
-&amp;&amp; jumping = 0
+&amp;&amp; not in_air
  {
  jumping = 1;
  c_vspeed = -phy_jumpheight;
@@ -121,8 +121,7 @@ c_vspeed += .2;
 
 //Reset Jumping Flag
 if c_vspeed &gt;= 0
-&amp;&amp; in_air = 0
-  jumping = 0;
+jumping = 0;
  
 //Running
 if keyboard_check(global.p1_b)
@@ -181,24 +180,28 @@ scr_cmove_step(1);
             <kind>1</kind>
             <string>///Sprites
 
-if jumping
-  sprite_index = spr_player1_jump;
+if in_air
+sprite_index = spr_player1_jump;
+
 else
-{
-    if c_hspeed != 0
-    {
-      sprite_index = spr_player1_walk;
-      if add_y == 0
-        image_speed = 0.3;
-      else
-      {
-        image_speed = 0;
-        image_index = 1;
-      }
-    }
-    else
-      sprite_index = spr_player1_stop;
-}
+ {
+ if c_hspeed != 0
+  {
+  sprite_index = spr_player1_walk;
+     
+  if add_y == 0
+  image_speed = 0.3;
+      
+  else
+   {
+   image_speed = 0;
+   image_index = 1;
+   }
+  }
+     
+ else
+ sprite_index = spr_player1_stop;
+ }
 </string>
           </argument>
         </arguments>
@@ -233,6 +236,18 @@ if (x &lt; (abs(sprite_width/2)))
     else if (x &gt; room_width-(abs(sprite_width/2)))
         draw_sprite_ext(sprite_index,-1,x-room_width,y,dir1,1,0,c_white,image_alpha);
 }
+
+//Debug Info
+if obj_debug.infowindow_open
+ {
+ //Draws Mario's sprite origin
+ draw_set_color(choose(c_white,c_gray));
+ draw_line(x,y,x,y);
+ 
+ //Draw Mario's bounding box
+ draw_set_color(c_red);
+ draw_rectangle(bbox_left,bbox_top,bbox_right,bbox_bottom,1);
+ }
 </string>
           </argument>
         </arguments>
