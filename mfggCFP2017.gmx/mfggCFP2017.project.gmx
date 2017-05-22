@@ -21,6 +21,10 @@
       <sprite>sprites\spr_jumpthrough</sprite>
       <sprite>sprites\spr_slopeR_1x</sprite>
       <sprite>sprites\spr_slopeL_1x</sprite>
+      <sprite>sprites\spr_slopeR_2x</sprite>
+      <sprite>sprites\spr_slopeL_2x</sprite>
+      <sprite>sprites\spr_slopeR_05x</sprite>
+      <sprite>sprites\spr_slopeL_05x</sprite>
     </sprites>
   </sprites>
   <backgrounds name="background"/>
@@ -45,6 +49,10 @@
       <object>objects\par_slope</object>
       <object>objects\obj_slopeR_1x</object>
       <object>objects\obj_slopeL_1x</object>
+      <object>objects\obj_slopeR_2x</object>
+      <object>objects\obj_slopeL_2x</object>
+      <object>objects\obj_slopeR_05x</object>
+      <object>objects\obj_slopeL_05x</object>
     </objects>
   </objects>
   <rooms name="rooms">

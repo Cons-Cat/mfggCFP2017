@@ -32,6 +32,7 @@ dir1 = 1;
 max_speed = 1;
 jumping = 0;
 vertWrap = 208+32;
+raisePixels = 0;
 
 //Physics Constants
 phy_walkspeed = 1;
