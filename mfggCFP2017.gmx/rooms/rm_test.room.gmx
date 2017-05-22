@@ -101,7 +101,7 @@
     <instance objName="obj_slopeL_1x" x="304" y="96" name="inst_1E38CE52" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="obj_slopeL_1x" x="288" y="80" name="inst_9162953A" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="obj_slopeL_1x" x="272" y="64" name="inst_3A13EEEE" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
-    <instance objName="obj_player" x="240" y="160" name="inst_44C1A716" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
+    <instance objName="obj_player" x="240" y="176" name="inst_44C1A716" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="obj_solid" x="208" y="64" name="inst_0B7F7D80" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="obj_solid" x="224" y="64" name="inst_CD3B78D1" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="obj_solid" x="240" y="64" name="inst_01A862AB" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>

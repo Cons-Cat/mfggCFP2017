@@ -63,8 +63,15 @@ add_x = c_hspeed+c_hspeed_misc+subpix_move_h;
 add_y = c_vspeed+c_vspeed_misc+subpix_move_v;
 
 //Gravity
-if not c_vspeed_fr
-c_vspeed += c_gravity;
+if canJump = 3{
+ //if not c_vspeed_fr
+ c_vspeed += c_gravity;
+}
+
+//Terminal velocity
+if c_vspeed > max_vspeed{
+    c_vspeed = max_vspeed;
+}
 
 //Checks to see if the object is in the air
 if argument0 == 1

@@ -33,12 +33,14 @@
       <script>scripts\scr_decconv.gml</script>
       <script>scripts\scr_inair.gml</script>
       <script>scripts\scr_spdosc_timer.gml</script>
+      <script>scripts\scr_varjump.gml</script>
     </scripts>
   </scripts>
   <objects name="objects">
     <object>objects\obj_hud</object>
     <object>objects\obj_player</object>
     <objects name="Collision">
+      <object>objects\obj_solid_parent</object>
       <object>objects\obj_solid</object>
       <object>objects\obj_jumpthrough</object>
       <object>objects\par_slope</object>

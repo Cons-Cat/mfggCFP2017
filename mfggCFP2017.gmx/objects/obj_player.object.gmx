@@ -30,13 +30,20 @@ c_gravity = 0.3;
 image_speed = 0.3;
 dir1 = 1;
 max_speed = 1;
+max_vspeed = 2;
+
 
 //Physics Constants
 phy_walkspeed = 1;
 phy_runspeed = 2;
 phy_acceleration = .2;
 phy_deceleration = .2;
-phy_jumpheight = 5;
+phy_jumppower = 5;
+
+//Variable Jumping Constants
+canJump = 1;
+jumpY = y;
+jumpHeight = 48;
 
 //Input Constants (will move these later)
 global.p1_left = vk_left;
@@ -47,6 +54,7 @@ global.p1_down = vk_down;
 global.p1_a = ord("X");
 global.p1_b = ord("Z");
 global.p1_c = ord("C");
+
 </string>
           </argument>
         </arguments>
@@ -82,11 +90,7 @@ if (not keyboard_check(global.p1_left) &amp;&amp; not keyboard_check(global.p1_r
 c_hspeed -= phy_deceleration*sign(c_hspeed);
 
 //Jumping
-if keyboard_check_pressed(global.p1_a)
-&amp;&amp; not in_air
- {
- c_vspeed = -phy_jumpheight;
- }
+script_execute(scr_varjump);
  
 //Running
 if keyboard_check(global.p1_b)
@@ -113,6 +117,7 @@ c_vspeed = min(c_vspeed,32);
 //Custom Movement System (Goes Last)
 //Argument decides whether or not to evaluate collision
 scr_cmove_step(1);
+
 </string>
           </argument>
         </arguments>
@@ -169,6 +174,9 @@ else
             <kind>1</kind>
             <string>///Draws the Sprites
 draw_sprite_ext(sprite_index,image_index,x,y,dir1,1,0,c_white,image_alpha);
+
+draw_text(x,y+32,canJump);
+
 </string>
           </argument>
         </arguments>
@@ -186,5 +194,8 @@ draw_sprite_ext(sprite_index,image_index,x,y,dir1,1,0,c_white,image_alpha);
   <PhysicsObjectFriction>0.200000002980232</PhysicsObjectFriction>
   <PhysicsObjectAwake>-1</PhysicsObjectAwake>
   <PhysicsObjectKinematic>0</PhysicsObjectKinematic>
-  <PhysicsShapePoints/>
+  <PhysicsShapePoints>
+    <point>12,12</point>
+    <point>12,12</point>
+  </PhysicsShapePoints>
 </object>
