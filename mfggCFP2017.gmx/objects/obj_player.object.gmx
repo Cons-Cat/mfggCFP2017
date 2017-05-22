@@ -142,6 +142,12 @@ y = 0-sprite_height;
 //Vertical Speed Cap
 c_vspeed = min(c_vspeed,6);
 
+//Wrap around room
+if (x &lt; 0)
+x += room_width;
+else if (x &gt; room_width)
+x -= room_width;
+
 //Custom Movement System (Goes Last)
 //Argument decides whether or not to evaluate collision
 scr_cmove_step(1);
@@ -200,7 +206,16 @@ else
           <argument>
             <kind>1</kind>
             <string>///Draws the Sprites
+
 draw_sprite_ext(sprite_index,image_index,x,y,dir1,1,0,c_white,image_alpha);
+if (x &lt; (abs(sprite_width/2)))
+|| (x &gt; room_width-(abs(sprite_width/2))) {
+
+    if (x &lt; (abs(sprite_width/2)))
+        draw_sprite_ext(sprite_index,-1,x+room_width,y,dir1,1,0,c_white,image_alpha);
+    else if (x &gt; room_width-(abs(sprite_width/2)))
+        draw_sprite_ext(sprite_index,-1,x-room_width,y,dir1,1,0,c_white,image_alpha);
+}
 </string>
           </argument>
         </arguments>
