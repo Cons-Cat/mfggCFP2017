@@ -180,8 +180,7 @@ scr_cmove_step(1);
             <kind>1</kind>
             <string>///Sprites
 
-if in_air
-&amp;&amp; !collision_rectangle(bbox_left,bbox_bottom,bbox_right,bbox_bottom+1,par_slope,1,0)
+if in_air //&amp;&amp; !collision_rectangle(bbox_left,bbox_bottom,bbox_right,bbox_bottom+1,par_slope,1,0)
 sprite_index = spr_player1_jump;
 
 else
@@ -249,6 +248,32 @@ if obj_debug.infowindow_open
  draw_set_color(c_red);
  draw_rectangle(bbox_left,bbox_top,bbox_right,bbox_bottom,1);
  }
+</string>
+          </argument>
+        </arguments>
+      </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///debug purpose
+draw_set_color($0000FF);
+draw_set_font(ft_testuse);
+draw_text(0,0,'in_air = '+string(in_air));
+draw_text(0,10,'add_y = '+string(add_y));
+draw_set_color($FFFFFF);
 </string>
           </argument>
         </arguments>

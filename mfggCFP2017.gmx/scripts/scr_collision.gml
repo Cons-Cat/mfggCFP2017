@@ -128,7 +128,7 @@ repeat(2)
   }
 
   //Handle slope collision
-  if collision_rectangle(bbox_left,bbox_bottom-4,bbox_right,bbox_bottom-1,par_slope,1,0) 
+  if collision_rectangle(bbox_left,bbox_bottom-4,bbox_right,bbox_bottom,par_slope,1,0) 
   && !collision_rectangle(bbox_left,bbox_bottom-8,bbox_right,bbox_bottom-8,par_slope,1,0)
   {
     if add_y >= 0
