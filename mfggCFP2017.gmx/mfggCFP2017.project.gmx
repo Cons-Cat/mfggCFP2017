@@ -78,6 +78,9 @@
   <shaders name="shaders">
     <shader type="GLSLES">shaders\shd_pal_swapper.shader</shader>
   </shaders>
+  <fonts name="fonts">
+    <font>fonts\ft_testuse</font>
+  </fonts>
   <objects name="objects">
     <object>objects\obj_superparent</object>
     <object>objects\obj_debug</object>
