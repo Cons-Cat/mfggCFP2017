@@ -11,6 +11,7 @@ c_hspeed_hascarry = 0; //Boolean that determines if the object already had its s
 c_vspeed_hascarry = 0; //Same as c_hspeed_hascarry
 c_hspeed_misc = 0; //Horizontal speed for things like conveyor belts that move the object independently from the player's input
 c_vspeed_misc = 0; //Same as c_hspeed_misc
+c_hspeed_slope = 0; //Horizontal speed for steep slope that move the object independently from the player's input
 c_gravity = 0; //Gravity
 add_x = 0; //The total number of pixels to move the player horizontally, counting for both c_hspeed and c_hspeed_misc
 add_y = 0; //Same as add_x

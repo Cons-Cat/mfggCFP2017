@@ -119,7 +119,7 @@ repeat(2)
   {
     if collision_rectangle(bbox_left,bbox_bottom-1,bbox_right,bbox_bottom+4,par_slope,1,0) 
     && !collision_rectangle(bbox_left,bbox_bottom-4,bbox_right,bbox_bottom-4,par_slope,1,0)
-    && c_hspeed != 0
+    && c_hspeed_slope+c_hspeed != 0
     {
       if (!collision_rectangle(bbox_left,bbox_bottom-1,bbox_right,bbox_bottom+1,current_jt,0,0))
       && (!collision_rectangle(bbox_left,bbox_bottom-1,bbox_right,bbox_bottom+1,currentsolid_down,0,0))
@@ -142,6 +142,27 @@ repeat(2)
       while collision_rectangle(bbox_left,bbox_bottom-4,bbox_right,bbox_bottom-1,par_slope,1,0)
         y--;
     }
+    
+    //steep slope push
+    if (collision_rectangle(bbox_left,bbox_bottom-4,bbox_right,bbox_bottom,obj_slopeR_05x,1,0))
+    && !(collision_rectangle(bbox_left,bbox_bottom-4,bbox_right,bbox_bottom,obj_slopeL_05x,1,0))
+    {
+        c_hspeed_slope = -1;
+    }
+    else if (collision_rectangle(bbox_left,bbox_bottom-4,bbox_right,bbox_bottom,obj_slopeL_05x,1,0))
+    && !(collision_rectangle(bbox_left,bbox_bottom-4,bbox_right,bbox_bottom,obj_slopeR_05x,1,0))
+    {
+        c_hspeed_slope = 1;
+    }
+    else
+    {
+        c_hspeed_slope = 0;
+    }
+    
+  }
+  else
+  {
+    c_hspeed_slope = 0;
   }
   
   /*  OLD SLOPE CODE

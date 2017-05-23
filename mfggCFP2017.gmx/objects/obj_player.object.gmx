@@ -269,11 +269,16 @@ if obj_debug.infowindow_open
           <argument>
             <kind>1</kind>
             <string>///debug purpose
-draw_set_color($0000FF);
-draw_set_font(ft_testuse);
-draw_text(0,0,'in_air = '+string(in_air));
-draw_text(0,10,'add_y = '+string(add_y));
-draw_set_color($FFFFFF);
+if (obj_debug.infowindow_open &lt;&gt; 0)
+{
+    draw_set_color($0000FF);
+    draw_set_font(ft_testuse);
+    draw_text(0,0,'in_air = '+string(in_air));
+    draw_text(0,10,'add_x = '+string(add_x));
+    draw_text(0,20,'add_y = '+string(add_y));
+    draw_text(0,30,'c_hspeed_slope = '+string(c_hspeed_slope)); 
+    draw_set_color($FFFFFF);
+}
 </string>
           </argument>
         </arguments>

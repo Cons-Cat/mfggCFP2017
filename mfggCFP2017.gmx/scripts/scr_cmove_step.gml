@@ -59,7 +59,7 @@ if c_hspeed == -0
 c_hspeed = 0;
 
 //Determines the number of pixels to move
-add_x = c_hspeed+c_hspeed_misc+subpix_move_h;
+add_x = c_hspeed+c_hspeed_misc+subpix_move_h+c_hspeed_slope;
 add_y = c_vspeed+c_vspeed_misc+subpix_move_v;
 
 //Gravity
