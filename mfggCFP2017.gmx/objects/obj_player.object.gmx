@@ -5,7 +5,7 @@
   <visible>-1</visible>
   <depth>-5</depth>
   <persistent>0</persistent>
-  <parentName>&lt;undefined&gt;</parentName>
+  <parentName>obj_superparent</parentName>
   <maskName>spr_player_mask</maskName>
   <events>
     <event eventtype="0" enumb="0">
@@ -34,6 +34,7 @@ jumping = 0;
 vertWrap = 208+32;
 raisePixels = 0;
 slopeVOff = 0;
+editing = 0;
 
 //Physics Constants
 phy_walkspeed = 1;
@@ -42,6 +43,10 @@ phy_acceleration = .2;
 phy_deceleration = .2;
 phy_deceleration_air = .1;
 phy_jumpheight = 5.5;
+
+phy_editorspeed = 2.2;
+phy_acceleration_editor = .35;
+phy_deceleration_editor = .35;
 
 //Input Constants (will move these later)
 global.p1_left = vk_left;
@@ -52,6 +57,7 @@ global.p1_down = vk_down;
 global.p1_a = ord("X");
 global.p1_b = ord("Z");
 global.p1_c = ord("C");
+
 </string>
           </argument>
         </arguments>
@@ -74,13 +80,40 @@ global.p1_c = ord("C");
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>//Movement
+            <string>//Determining physics values
+if room = rm_editor{
+    if obj_editor_gui.inEditor = 1{
+        editing = 1;
+    } else {
+        editing = 0;
+    }
+}
+
+if editing = 1{
+    phy_acceleration_imp = phy_acceleration_editor;
+    phy_deceleration_imp = phy_deceleration_editor;
+    max_speed = phy_editorspeed;
+} else {
+    phy_acceleration_imp = phy_acceleration;
+    phy_deceleration_imp = phy_deceleration;
+}
+
+//Movement
 if keyboard_check(global.p1_left)
 &amp;&amp; not keyboard_check(global.p1_right)
-c_hspeed = max(c_hspeed-phy_acceleration,-max_speed);
+c_hspeed = max(c_hspeed-phy_acceleration_imp,-max_speed);
 
 if keyboard_check(global.p1_right)
-c_hspeed = min(c_hspeed+phy_acceleration,max_speed);
+c_hspeed = min(c_hspeed+phy_acceleration_imp,max_speed);
+
+if editing = 1{
+ if keyboard_check(global.p1_up)
+ &amp;&amp; not keyboard_check(global.p1_down)
+ c_vspeed = max(c_vspeed-phy_acceleration_imp,-max_speed);
+ 
+ if keyboard_check(global.p1_down)
+ c_vspeed = min(c_vspeed+phy_acceleration_imp,max_speed);
+}
 
 //Stopping
 if (not keyboard_check(global.p1_left) &amp;&amp; not keyboard_check(global.p1_right))
@@ -99,19 +132,31 @@ if (not keyboard_check(global.p1_left) &amp;&amp; not keyboard_check(global.p1_r
  else
   {
   if c_hspeed &lt; 0
-  c_hspeed = min(c_hspeed+phy_deceleration,0);
+  c_hspeed = min(c_hspeed+phy_deceleration_imp,0);
   if c_hspeed &gt; 0
-  c_hspeed = max(c_hspeed-phy_deceleration,0);
+  c_hspeed = max(c_hspeed-phy_deceleration_imp,0);
   }
+}
+
+if (not keyboard_check(global.p1_up) &amp;&amp; not keyboard_check(global.p1_down))
+&amp;&amp; abs(c_vspeed) &gt; 0{
+ if room = rm_editor{
+  if c_vspeed &lt; 0
+  c_vspeed = min(c_vspeed+phy_deceleration_imp,0);
+  if c_vspeed &gt; 0
+  c_vspeed = max(c_vspeed-phy_deceleration_imp,0);
  }
+}
 
 //Jumping
+if editing = 0{
 if keyboard_check_pressed(global.p1_a)
 &amp;&amp; not in_air
  {
  jumping = 1;
  c_vspeed = -phy_jumpheight;
  }
+}
  
 //Variable Jump
 if not keyboard_check(global.p1_a)
@@ -124,19 +169,23 @@ if c_vspeed &gt;= 0
 jumping = 0;
  
 //Running
-if keyboard_check(global.p1_b)
-max_speed = phy_runspeed;
+if editing = 0{
+ if keyboard_check(global.p1_b)
+ max_speed = phy_runspeed;
 
 else
-max_speed = phy_walkspeed;
+ max_speed = phy_walkspeed;
+}
 
 //Lowers the player's speed if it is exceeding the current max
 if abs(c_hspeed) &gt; max_speed
 c_hspeed -= .1*sign(c_hspeed);
  
 //Direction
-if c_hspeed != 0
-dir1 = sign(c_hspeed);
+if editing = 0{
+ if c_hspeed != 0
+ dir1 = sign(c_hspeed);
+}
 
 //Vertical Speed Cap
 c_vspeed = min(c_vspeed,6);
@@ -147,16 +196,29 @@ x += room_width;
 else if (x &gt; room_width)
 x -= room_width;
 
-if (y &lt; 0) 
-{
-  //Add here top-boundary penalty.
+if editing = 0{
+ if (y &lt; 0) 
+ {
+   //Add here top-boundary penalty.
+ }
+ else if y &gt; vertWrap
+     y = -16;
+} else {
+ if y &lt; 32+12{
+    y = 32+12;
+ }
+ if y &gt; 270-12{
+    y = 270-12;
+    c_vspeed = 0;
+ }
 }
-else if y &gt; vertWrap
-    y = -16;
-
 //Custom Movement System (Goes Last)
-//Argument decides whether or not to evaluate collision
-scr_cmove_step(1);
+if editing = 0{
+ //Argument decides whether or not to evaluate collision
+ scr_cmove_step(1,0);
+} else {
+ scr_cmove_step(0,1);
+}
 
 </string>
           </argument>
@@ -180,6 +242,7 @@ scr_cmove_step(1);
             <kind>1</kind>
             <string>///Sprites
 
+if editing = 0{
 if in_air
 &amp;&amp; !collision_rectangle(bbox_left,bbox_bottom,bbox_right,bbox_bottom+1,par_slope,1,0)
 sprite_index = spr_player1_jump;
@@ -203,6 +266,8 @@ else
  else
  sprite_index = spr_player1_stop;
  }
+}
+
 </string>
           </argument>
         </arguments>

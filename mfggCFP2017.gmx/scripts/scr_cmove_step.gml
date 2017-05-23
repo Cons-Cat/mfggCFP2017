@@ -3,6 +3,7 @@
 ///The bulk of the custom movement system
 col = argument0; //Determines if we should check for collisions or not
 cmove_steps += 1; //Adds 1 to the step counter
+editing = argument1;
 
 //---
 //Fake subpixel system
@@ -64,6 +65,7 @@ add_y = c_vspeed+c_vspeed_misc+subpix_move_v;
 
 //Gravity
 if not c_vspeed_fr
+&& editing = 0
 c_vspeed += c_gravity;
 
 //Checks to see if the object is in the air
@@ -88,6 +90,7 @@ for(var mv_h = 0;mv_h < floor(abs(add_x));mv_h++)
  cmove_substeps += 1;
  
  if col == 1
+ && editing == 0
  scr_collision();
  
  x += sign(add_x);
@@ -99,6 +102,7 @@ for(var mv_v = 0;mv_v < floor(abs(add_y));mv_v++)
  cmove_substeps += 1;
  
  if col == 1
+ && editing == 0
  scr_collision();
  
  y += sign(add_y);
@@ -106,4 +110,6 @@ for(var mv_v = 0;mv_v < floor(abs(add_y));mv_v++)
 
 //Failsafe collision for if the player isn't moving
 if col == 1
+&& editing = 0
 scr_collision();
+

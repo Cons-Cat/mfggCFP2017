@@ -36,8 +36,17 @@
       <sprite>sprites\spr_starman</sprite>
       <sprite>sprites\spr_metalsnail</sprite>
     </sprites>
+    <sprites name="Editor GUI">
+      <sprite>sprites\spr_editor_bar</sprite>
+      <sprite>sprites\spr_togglelevel</sprite>
+      <sprite>sprites\spr_play</sprite>
+      <sprite>sprites\spr_edit</sprite>
+    </sprites>
   </sprites>
-  <backgrounds name="background"/>
+  <backgrounds name="background">
+    <background>background\bck_overworld</background>
+    <background>background\bck_stage_editor</background>
+  </backgrounds>
   <paths name="paths"/>
   <scripts name="scripts">
     <scripts name="Movement and Collision">
@@ -60,12 +69,17 @@
       <script>scripts\pal_swap_set.gml</script>
       <script>scripts\pal_swap_set_tiles.gml</script>
     </scripts>
+    <scripts name="Stage Editor">
+      <script>scripts\scr_guitile.gml</script>
+      <script>scripts\scr_editor_player.gml</script>
+    </scripts>
     <script>scripts\wrap.gml</script>
   </scripts>
   <shaders name="shaders">
     <shader type="GLSLES">shaders\shd_pal_swapper.shader</shader>
   </shaders>
   <objects name="objects">
+    <object>objects\obj_superparent</object>
     <object>objects\obj_debug</object>
     <object>objects\obj_hud</object>
     <object>objects\obj_player</object>
@@ -80,9 +94,22 @@
       <object>objects\obj_slopeR_05x</object>
       <object>objects\obj_slopeL_05x</object>
     </objects>
+    <objects name="Items">
+      <object>objects\obj_item_parent</object>
+      <object>objects\obj_mushroom</object>
+    </objects>
+    <objects name="Stage Editor">
+      <object>objects\obj_editor_init</object>
+      <object>objects\obj_editor_gui</object>
+      <object>objects\obj_togglelevel</object>
+      <object>objects\obj_gui_tile</object>
+      <object>objects\obj_tilegui_control</object>
+      <object>objects\obj_mode_switch</object>
+    </objects>
   </objects>
   <rooms name="rooms">
     <room>rooms\rm_test</room>
+    <room>rooms\rm_editor_init</room>
     <room>rooms\rm_editor</room>
   </rooms>
   <help>
