@@ -85,6 +85,7 @@
     <object>objects\obj_superparent</object>
     <object>objects\obj_debug</object>
     <object>objects\obj_hud</object>
+    <object>objects\obj_player</object>
     <objects name="Collision">
       <object>objects\obj_solid</object>
       <object>objects\obj_jumpthrough</object>
@@ -112,6 +113,7 @@
   <rooms name="rooms">
     <room>rooms\rm_test</room>
     <room>rooms\rm_editor_init</room>
+    <room>rooms\rm_editor</room>
   </rooms>
   <help>
     <rtf>help.rtf</rtf>
