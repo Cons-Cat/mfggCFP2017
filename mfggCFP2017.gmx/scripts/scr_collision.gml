@@ -139,7 +139,7 @@ repeat(2)
     //Prevent the player from getting embed inside a slope.
     if c_vspeed > -0.85 {
     
-      while collision_rectangle(bbox_left,bbox_bottom-4,bbox_right,bbox_bottom,par_slope,1,0)
+      while collision_rectangle(bbox_left,bbox_bottom-4,bbox_right,bbox_bottom-1,par_slope,1,0)
         y--;
     }
   }

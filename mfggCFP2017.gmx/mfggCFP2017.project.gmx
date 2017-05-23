@@ -26,6 +26,16 @@
       <sprite>sprites\spr_slopeR_05x</sprite>
       <sprite>sprites\spr_slopeL_05x</sprite>
     </sprites>
+    <sprites name="Items">
+      <sprite>sprites\spr_mushroom</sprite>
+      <sprite>sprites\spr_lifemushroom</sprite>
+      <sprite>sprites\spr_deathshroom</sprite>
+      <sprite>sprites\spr_fireflower</sprite>
+      <sprite>sprites\spr_iceflower</sprite>
+      <sprite>sprites\spr_raccoonleaf</sprite>
+      <sprite>sprites\spr_starman</sprite>
+      <sprite>sprites\spr_metalsnail</sprite>
+    </sprites>
   </sprites>
   <backgrounds name="background"/>
   <paths name="paths"/>
@@ -73,6 +83,7 @@
   </objects>
   <rooms name="rooms">
     <room>rooms\rm_test</room>
+    <room>rooms\rm_editor</room>
   </rooms>
   <help>
     <rtf>help.rtf</rtf>

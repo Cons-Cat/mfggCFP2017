@@ -181,6 +181,7 @@ scr_cmove_step(1);
             <string>///Sprites
 
 if in_air
+&amp;&amp; !collision_rectangle(bbox_left,bbox_bottom,bbox_right,bbox_bottom+1,par_slope,1,0)
 sprite_index = spr_player1_jump;
 
 else
