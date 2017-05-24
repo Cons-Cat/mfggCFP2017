@@ -432,6 +432,14 @@ if holdingItem != 0{
           <argument>
             <kind>1</kind>
             <string>///Draws the Sprites
+
+//Set up palette shader
+if (global.current_pal &gt; 0) {
+
+    pal_swap_set(spr_testpalette,global.current_pal,0);
+}
+
+//Draw main sprite
 draw_sprite_ext(sprite_index,image_index,x,y,dir1,1,poundAngle,c_white,image_alpha);
 
 //Horizontal wrapping
@@ -443,6 +451,9 @@ if (x &lt; (abs(sprite_width/2)))
     else if (x &gt; room_width-(abs(sprite_width/2)))
         draw_sprite_ext(sprite_index,-1,x-room_width,y,dir1,1,poundAngle,c_white,image_alpha);
 }
+
+//Reset shader
+pal_swap_reset();
 
 //Debug Info
 if obj_debug.infowindow_open

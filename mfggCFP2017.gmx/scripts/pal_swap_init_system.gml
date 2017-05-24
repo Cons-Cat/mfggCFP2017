@@ -12,6 +12,7 @@ Pal_UVs = shader_get_uniform(argument[0], 'palette_UVs');
 Pal_Index = shader_get_uniform(argument[0], 'palette_index');
 Pal_Texture = shader_get_sampler_index(argument[0], 'palette_texture');
 
+/* Not really needed
 if(argument_count>1 && argument[1])
 {
     globalvar Pal_Map;
