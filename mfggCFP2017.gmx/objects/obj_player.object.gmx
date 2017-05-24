@@ -36,6 +36,11 @@ raisePixels = 0;
 slopeVOff = 0;
 editing = 0;
 holdingItem = 0;
+pounding = 0;
+poundRotateAlarm = 0;
+poundCounter = 0;
+groundPoundSpd = 2.5;
+poundAngle = 0;
 
 //Physics Constants
 phy_walkspeed = 1;
@@ -58,6 +63,57 @@ global.p1_down = vk_down;
 global.p1_a = ord("X");
 global.p1_b = ord("Z");
 global.p1_c = ord("C");
+
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="2" enumb="1">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///Slam down ground pound
+pounding = 4;
+
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="2" enumb="0">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///Continue the ground pound animation
+poundRotateAlarm = 0;
+poundAngle -= 45;
 
 </string>
           </argument>
@@ -168,7 +224,51 @@ c_vspeed += .2;
 //Reset Jumping Flag
 if c_vspeed &gt;= 0
 jumping = 0;
- 
+
+//Ground Pounding
+if pounding = 0{
+    if in_air{ //Activate ground pound
+        if keyboard_check_pressed(global.p1_down){
+            if holdingItem = 0{
+                pounding = 1;
+            }
+        }
+    }
+    poundAngle = 0;
+}
+if pounding = 1{ //Play ground pound animation
+    if poundRotateAlarm = 0{
+        poundRotateAlarm = 1;
+        poundCounter += 1;
+        alarm[0] = groundPoundSpd;
+    }
+    if poundCounter = 8{
+        pounding = 2;
+    }
+    c_vspeed = 0;
+    c_hspeed = 0;
+    
+    if keyboard_check_pressed(global.p1_up){ //Cancel ground pound
+        pounding = 0;
+        poundCounter = 0;
+        poundAngle = 0;
+    }
+}
+if pounding = 2{
+    pounding = 3;
+    c_hspeed = 0;
+    c_vspeed = 0;
+    alarm[1] = 13;
+}
+if pounding = 3{
+    c_hspeed = 0;
+    c_vspeed = 0;
+}
+if pounding = 4{ //Slam down
+    c_vspeed = 6;
+    c_hspeed = 0;
+}
+
 //Running
 if editing = 0{
  if keyboard_check(global.p1_b)
@@ -332,16 +432,16 @@ if holdingItem != 0{
           <argument>
             <kind>1</kind>
             <string>///Draws the Sprites
-draw_sprite_ext(sprite_index,image_index,x,y,dir1,1,0,c_white,image_alpha);
+draw_sprite_ext(sprite_index,image_index,x,y,dir1,1,poundAngle,c_white,image_alpha);
 
 //Horizontal wrapping
 if (x &lt; (abs(sprite_width/2)))
 || (x &gt; room_width-(abs(sprite_width/2))) {
 
     if (x &lt; (abs(sprite_width/2)))
-        draw_sprite_ext(sprite_index,-1,x+room_width,y,dir1,1,0,c_white,image_alpha);
+        draw_sprite_ext(sprite_index,-1,x+room_width,y,dir1,1,poundAngle,c_white,image_alpha);
     else if (x &gt; room_width-(abs(sprite_width/2)))
-        draw_sprite_ext(sprite_index,-1,x-room_width,y,dir1,1,0,c_white,image_alpha);
+        draw_sprite_ext(sprite_index,-1,x-room_width,y,dir1,1,poundAngle,c_white,image_alpha);
 }
 
 //Debug Info

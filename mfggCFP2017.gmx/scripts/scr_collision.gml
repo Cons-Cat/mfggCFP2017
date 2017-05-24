@@ -72,6 +72,11 @@ repeat(2)
    
     if collision_rectangle(bbox_left,bbox_bottom,bbox_right,bbox_bottom,currentsolid_down,false,true)
     y -= 1;
+    if pounding = 4{
+        pounding = 0;
+        poundRotateAlarm = 0;
+        poundCounter = 0;
+    }
   }
    
   if currentsolid_left
@@ -106,6 +111,11 @@ repeat(2)
     
       //Stay above the jumpthrough platform
       y = current_jt.bbox_top-12;
+        if pounding = 4{
+            pounding = 0;
+            poundRotateAlarm = 0;
+            poundCounter = 0;
+        }
       
       //Stop vertical movement
       c_vspeed = 0
@@ -141,6 +151,11 @@ repeat(2)
     
       while collision_rectangle(bbox_left,bbox_bottom-4,bbox_right,bbox_bottom-1,par_slope,1,0)
         y--;
+        if pounding = 4{
+            pounding = 0;
+            poundRotateAlarm = 0;
+            poundCounter = 0;
+        }
     }
     
     //steep slope push

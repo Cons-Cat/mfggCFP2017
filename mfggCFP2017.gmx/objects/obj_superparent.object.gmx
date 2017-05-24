@@ -57,6 +57,7 @@ c_gravity = 0.3;
             <kind>1</kind>
             <string>phy_deceleration = 0.2;
 phy_deceleration_air = 0.1;
+pounding = 0;
 
 //Being dragged around the editor
 if instance_exists(obj_editor_gui){
