@@ -10,8 +10,11 @@
       <sprite>sprites\spr_player_mask</sprite>
       <sprites name="Player 1">
         <sprite>sprites\spr_player1_stop</sprite>
+        <sprite>sprites\spr_player1_stop_hold</sprite>
         <sprite>sprites\spr_player1_walk</sprite>
+        <sprite>sprites\spr_player1_walk_hold</sprite>
         <sprite>sprites\spr_player1_jump</sprite>
+        <sprite>sprites\spr_player1_jump_hold</sprite>
         <sprite>sprites\spr_player1_skid</sprite>
         <sprite>sprites\spr_player1_stun</sprite>
       </sprites>
@@ -35,6 +38,7 @@
       <sprite>sprites\spr_raccoonleaf</sprite>
       <sprite>sprites\spr_starman</sprite>
       <sprite>sprites\spr_metalsnail</sprite>
+      <sprite>sprites\spr_placeholder_holditem</sprite>
     </sprites>
     <sprites name="Editor GUI">
       <sprite>sprites\spr_editor_bar</sprite>
@@ -100,6 +104,7 @@
     <objects name="Items">
       <object>objects\obj_item_parent</object>
       <object>objects\obj_mushroom</object>
+      <object>objects\obj_placeholder_holditem</object>
     </objects>
     <objects name="Stage Editor">
       <object>objects\obj_editor_init</object>
