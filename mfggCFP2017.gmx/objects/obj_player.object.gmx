@@ -381,7 +381,7 @@ if editing = 0{
             <kind>1</kind>
             <string>///Sprites
 if editing = 0{
-    if in_air &amp;&amp; !collision_rectangle(bbox_left,bbox_bottom,bbox_right,bbox_bottom+1,par_slope,1,0){
+    if in_air &amp;&amp; !collision_rectangle(bbox_left,bbox_bottom,bbox_right,bbox_bottom+1,par_slope_top,1,0){
         sprite_index = spr_player1_jump;
     } else if c_hspeed != 0{
         sprite_index = spr_player1_walk;

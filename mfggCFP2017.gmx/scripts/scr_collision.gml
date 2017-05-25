@@ -1,36 +1,5 @@
 var col_phase = 0;
 
-/*
-if c_vspeed > 1{
-    if collision_rectangle(bbox_left,bbox_bottom,bbox_right,bbox_bottom+8,obj_slopeR_1x,false,false)
-    || collision_rectangle(bbox_left,bbox_bottom,bbox_right,bbox_bottom+8,obj_slopeL_1x,false,false){
-        slopeVOff = 1;
-    }
-    
-    if collision_rectangle(bbox_left,bbox_bottom,bbox_right,bbox_bottom+8,obj_slopeR_2x,false,false)
-    || collision_rectangle(bbox_left,bbox_bottom,bbox_right,bbox_bottom+8,obj_slopeL_2x,false,false){
-        slopeVOff = 1;
-    }
-    
-    if collision_rectangle(bbox_left,bbox_bottom,bbox_right,bbox_bottom+8,obj_slopeL_05x,true,true){
-        if collision_rectangle(bbox_left,bbox_bottom,bbox_right,bbox_bottom+8,obj_slopeL_05x,true,true).x+8 < self.x{
-            slopeVOff = -8;
-        } else {
-            slopeVOff = 0;
-        }
-    }
-    if collision_rectangle(bbox_left,bbox_bottom,bbox_right,bbox_bottom+8,obj_slopeR_05x,true,true){
-        if collision_rectangle(bbox_left,bbox_bottom,bbox_right,bbox_bottom+8,obj_slopeR_05x,true,true).x+8 > self.x{
-            slopeVOff = -8;
-        } else {
-            slopeVOff = 0;
-        }
-    }
-} else {
-    slopeVOff = 0;
-}
-*/
-
 repeat(2)
 {
   var currentsolid_up = collision_rectangle(bbox_left,bbox_top-1,bbox_right,bbox_top-1,obj_solid,false,true);
@@ -38,16 +7,6 @@ repeat(2)
   var currentsolid_left = collision_rectangle(bbox_left-1,bbox_top,bbox_left-1,bbox_bottom-4,obj_solid,false,true);
   var currentsolid_right = collision_rectangle(bbox_right+1,bbox_top,bbox_right+1,bbox_bottom-4,obj_solid,false,true);
   var current_jt = collision_rectangle(bbox_left,bbox_bottom,bbox_right,bbox_bottom+1,obj_jumpthrough,false,true);
-
-  /*
-  var currentslope_up = collision_rectangle(bbox_left,bbox_top-1,bbox_right,bbox_top-1,par_slope,true,true);
-  var currentslope_down = collision_rectangle(bbox_left,bbox_bottom+4-slopeVOff,bbox_right,bbox_bottom+4-slopeVOff,par_slope,true,true);
-  var currentslope_down2 = collision_rectangle(bbox_left,bbox_bottom-slopeVOff,bbox_right,bbox_bottom-slopeVOff,par_slope,true,true);
-  var currentslope_down_id = self.id;
-  var currentslope_down2_id = self.id;
-  var currentslope_left = collision_rectangle(bbox_left-1,bbox_top,bbox_left-1,bbox_bottom-1-slopeVOff,par_slope,true,true);
-  var currentslope_right = collision_rectangle(bbox_right+1,bbox_top,bbox_right+1,bbox_bottom-2-slopeVOff,par_slope,true,true);
-  */
 
   //---Solids---
   if currentsolid_up
@@ -120,15 +79,15 @@ repeat(2)
       //Stop vertical movement
       c_vspeed = 0
       if add_y > 0
-        add_y = 0   
+        add_y = 0
     }
   }
 
   //Slopes
   if !in_air
   {
-    if collision_rectangle(bbox_left,bbox_bottom-1,bbox_right,bbox_bottom+4,par_slope,1,0) 
-    && !collision_rectangle(bbox_left,bbox_bottom-4,bbox_right,bbox_bottom-4,par_slope,1,0)
+    if collision_rectangle(bbox_left,bbox_bottom-1,bbox_right,bbox_bottom+4,par_slope_top,1,0) 
+    && !collision_rectangle(bbox_left,bbox_bottom-4,bbox_right,bbox_bottom-4,par_slope_top,1,0)
     && c_hspeed_slope+c_hspeed != 0
     {
       if (!collision_rectangle(bbox_left,bbox_bottom-1,bbox_right,bbox_bottom+1,current_jt,0,0))
@@ -136,10 +95,19 @@ repeat(2)
         y += 4;
     }
   }
+  
+  if in_air
+  {
+    if c_gravity != 0{
+        if collision_rectangle(bbox_left,bbox_top-1,bbox_right,bbox_top+4,par_slope_bot,1,0){
+            y += 0.5;
+        }
+      }
+  }
 
-  //Handle slope collision
-  if collision_rectangle(bbox_left,bbox_bottom-4,bbox_right,bbox_bottom,par_slope,1,0) 
-  && !collision_rectangle(bbox_left,bbox_bottom-8,bbox_right,bbox_bottom-8,par_slope,1,0)
+  //Handle top slope collision
+  if collision_rectangle(bbox_left,bbox_bottom-4,bbox_right,bbox_bottom,par_slope_top,1,0) 
+  && !collision_rectangle(bbox_left,bbox_bottom-8,bbox_right,bbox_bottom-8,par_slope_top,1,0)
   {
     if add_y >= 0
     add_y = 0;
@@ -149,7 +117,7 @@ repeat(2)
     //Prevent the player from getting embed inside a slope.
     if c_vspeed > -0.85 {
     
-      while collision_rectangle(bbox_left,bbox_bottom-4,bbox_right,bbox_bottom-1,par_slope,1,0)
+      while collision_rectangle(bbox_left,bbox_bottom-4,bbox_right,bbox_bottom-1,par_slope_top,1,0)
         y--;
         if pounding = 4{
             pounding = 0;
@@ -175,27 +143,37 @@ repeat(2)
     }
     
   }
-  else
+  else if !collision_rectangle(bbox_left,bbox_top,bbox_right,bbox_top-2,par_slope_bot,1,0)
   {
     c_hspeed_slope = 0;
   }
   
-  /*  OLD SLOPE CODE
-  //Slopes
-  if collision_rectangle(bbox_left
-  {
-    if add_y >= 0
-    add_y = 0;
-    if c_vspeed >= 0
-    c_vspeed = 0
-  }
-      
-  if collision_rectangle(bbox_left,bbox_bottom,bbox_right,bbox_bottom+1,currentslope_down2,true,true)
-    y -= collision_rectangle(bbox_left,bbox_bottom,bbox_right,bbox_bottom+1,currentslope_down2,true,true).raisePixels;
- 
-  if collision_rectangle(bbox_left,bbox_bottom,bbox_right,bbox_bottom+1,par_slope,1,1)
-  && not currentslope_down
-  && c_vspeed >= 0
-    y += collision_rectangle(bbox_left,bbox_bottom,bbox_right,bbox_bottom+1,par_slope,1,1).raisePixels;
-  */
+  //Handle bottom slope collision
+  if in_air{
+      if collision_rectangle(bbox_left,bbox_top-4,bbox_right,bbox_top,par_slope_bot,1,0) 
+      //&& !collision_rectangle(bbox_left,bbox_top-8,bbox_right,bbox_top-8,par_slope_bot,1,0)
+      {
+        if collision_rectangle(bbox_left,bbox_top-1,bbox_right,bbox_top,par_slope_bot,true,false){
+            if c_gravity != 0{
+                if c_vspeed < 0{
+                    if (collision_rectangle(bbox_left,bbox_top-4,bbox_right,bbox_top,par_slope_bot_R,1,0))
+                    {
+                        c_hspeed_slope = -1;
+                        if c_hspeed > 0{
+                            c_vspeed = 0;
+                        }
+                    }
+                    if (collision_rectangle(bbox_left,bbox_top-4,bbox_right,bbox_top,par_slope_bot_L,1,0))
+                    {
+                        c_hspeed_slope = 1;
+                        if c_hspeed < 0{
+                            c_vspeed = 0;
+                        }
+                    }
+                }
+            }
+        }
+        }
+    }
 }
+

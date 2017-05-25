@@ -29,6 +29,12 @@
       <sprite>sprites\spr_slopeL_2x</sprite>
       <sprite>sprites\spr_slopeR_05x</sprite>
       <sprite>sprites\spr_slopeL_05x</sprite>
+      <sprite>sprites\spr_slopeR_1x_bot</sprite>
+      <sprite>sprites\spr_slopeL_1x_bot</sprite>
+      <sprite>sprites\spr_slopeR_2x_bot</sprite>
+      <sprite>sprites\spr_slopeL_2x_bot</sprite>
+      <sprite>sprites\spr_slopeR_05x_bot</sprite>
+      <sprite>sprites\spr_slopeL_05x_bot</sprite>
     </sprites>
     <sprites name="Items">
       <sprite>sprites\spr_mushroom</sprite>
@@ -95,13 +101,22 @@
     <objects name="Collision">
       <object>objects\obj_solid</object>
       <object>objects\obj_jumpthrough</object>
-      <object>objects\par_slope</object>
+      <object>objects\par_slope_top</object>
+      <object>objects\par_slope_bot</object>
+      <object>objects\par_slope_bot_R</object>
+      <object>objects\par_slope_bot_L</object>
       <object>objects\obj_slopeR_1x</object>
       <object>objects\obj_slopeL_1x</object>
       <object>objects\obj_slopeR_2x</object>
       <object>objects\obj_slopeL_2x</object>
       <object>objects\obj_slopeR_05x</object>
       <object>objects\obj_slopeL_05x</object>
+      <object>objects\obj_slopeR_1x_bot</object>
+      <object>objects\obj_slopeL_1x_bot</object>
+      <object>objects\obj_slopeR_2x_bot</object>
+      <object>objects\obj_slopeL_2x_bot</object>
+      <object>objects\obj_slopeR_05x_bot</object>
+      <object>objects\obj_slopeL_05x_bot</object>
     </objects>
     <objects name="Items">
       <object>objects\obj_item_parent</object>
