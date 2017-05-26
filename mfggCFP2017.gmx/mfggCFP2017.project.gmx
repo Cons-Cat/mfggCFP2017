@@ -58,6 +58,10 @@
       <sprite>sprites\spr_brick_hit</sprite>
       <sprite>sprites\spr_itemblock</sprite>
       <sprite>sprites\spr_hitblock</sprite>
+      <sprites name="Enemies">
+        <sprite>sprites\spr_goomba</sprite>
+        <sprite>sprites\spr_goomba_dead</sprite>
+      </sprites>
     </sprites>
   </sprites>
   <backgrounds name="background">
@@ -145,6 +149,10 @@
       <object>objects\obj_brick</object>
       <object>objects\obj_brick_hit</object>
       <object>objects\obj_itemblock</object>
+      <objects name="Enemies">
+        <object>objects\obj_enemy_parent</object>
+        <object>objects\obj_goomba</object>
+      </objects>
     </objects>
   </objects>
   <rooms name="rooms">

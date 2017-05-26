@@ -17,8 +17,9 @@ repeat(2)
     if c_vspeed <= 0
     c_vspeed = 0
    
-    if collision_rectangle(bbox_left,bbox_top,bbox_right,bbox_top,currentsolid_up,false,true)
-    y += 1;
+    if collision_rectangle(bbox_left,bbox_top,bbox_right,bbox_top,currentsolid_up,false,true){
+        y += 1;
+    }
   }
    
   if currentsolid_down
@@ -46,8 +47,12 @@ repeat(2)
     if c_hspeed <= 0
     c_hspeed = 0
    
-    if collision_rectangle(bbox_left,bbox_top,bbox_left,bbox_bottom,currentsolid_left,false,true)
-    x += 1;
+    if collision_rectangle(bbox_left,bbox_top,bbox_left,bbox_bottom,currentsolid_left,false,true){
+        x += 1;
+    }
+    if enemy = 1{
+        dir = 1;
+    }
   }
    
   if currentsolid_right
@@ -58,8 +63,12 @@ repeat(2)
     if c_hspeed >= 0
     c_hspeed = 0
    
-    if collision_rectangle(bbox_right,bbox_top,bbox_right,bbox_bottom,currentsolid_right,false,true)
-    x -= 1;
+    if collision_rectangle(bbox_right,bbox_top,bbox_right,bbox_bottom,currentsolid_right,false,true){
+        x -= 1;
+    }
+    if enemy = 1{
+        dir = -1;
+    }
   }
   
   if c_vspeed > 0

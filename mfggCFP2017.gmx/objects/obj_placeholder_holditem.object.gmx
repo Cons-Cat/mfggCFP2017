@@ -34,6 +34,7 @@ holder = 0;
 c_gravity = 0.3;
 rise = 0;
 starty = y;
+enemy = 0;
 
 </string>
           </argument>
