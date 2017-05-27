@@ -5,7 +5,7 @@
   <visible>-1</visible>
   <depth>0</depth>
   <persistent>0</persistent>
-  <parentName>obj_superparent</parentName>
+  <parentName>obj_solid_parent</parentName>
   <maskName>&lt;undefined&gt;</maskName>
   <events>
     <event eventtype="0" enumb="0">
@@ -29,7 +29,7 @@
 can_col = 1;
 script_execute(scr_cmove_init);
 
-canHold = 1;
+canHold = 0;
 holding = 0;
 held = 0;
 holder = 0;

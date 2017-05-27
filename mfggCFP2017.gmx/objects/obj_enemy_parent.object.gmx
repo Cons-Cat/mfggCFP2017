@@ -85,14 +85,25 @@ if dead = 0 || dead = 2{
         if dir = -1{ //Moving right
             c_hspeed = -spd;
         }
+        
+        if canTurn = 1{
+            if !collision_rectangle(bbox_left,bbox_bottom,bbox_left+8,bbox_bottom+15,obj_solid_parent,false,false){
+                dir = 1;
+            }
+            if !collision_rectangle(bbox_right,bbox_bottom,bbox_right-8,bbox_bottom+15,obj_solid_parent,false,false){
+                dir = -1;
+            }
+        }
     }
     if dead = 2{
-        if kicked = 1{
-            if dir = 1{ //Moving right
-                c_hspeed = kickSpd;
-            }
-            if dir = -1{ //Moving right
-                c_hspeed = -kickSpd;
+        if holding = 0{
+            if kicked = 1{
+                if dir = 1{ //Moving right
+                    c_hspeed = kickSpd;
+                }
+                if dir = -1{ //Moving right
+                    c_hspeed = -kickSpd;
+                }
             }
         }
     }
@@ -103,14 +114,13 @@ if dead = 0 || dead = 2{
         if dead = 2 &amp;&amp; kicked = 1{
             other.dead = 3;
             other.c_vspeed = -4;
-            other.y += 16;
         }
     }
     
-    with collision_rectangle(bbox_left,bbox_top-1,bbox_right,bbox_top,obj_player,false,true){
+    with collision_rectangle(bbox_left,bbox_top,bbox_right,bbox_top+1,obj_player,false,true){
         if c_vspeed &gt; 0{
             if (y + sprite_height/2 &lt; other.y+8) || (other.dead = 0){
-                if (other.canJumped = 1 &amp;&amp; other.kicked = 1) || (other.canJumped = 0){
+                if (other.canJumped = 1 &amp;&amp; other.kicked = 1) || (other.canJumped = 0) || (other.canJumped = 1 &amp;&amp; other.dead = 0){
                     if keyboard_check(global.p1_a){
                         c_vspeed = -(phy_jumpheight+0.5);
                     } else {
@@ -119,18 +129,18 @@ if dead = 0 || dead = 2{
                    
                     jumping = 1;
                     other.trg = self.id;
-                    
-                    other.kicked = 0;
-                    other.kickDeadly = 0;
                 }
-                
                 other.c_hspeed = 0;
                 
                 if other.canJumped = 0{
                     other.dead = 1; //Death
+                    holding = 1;
                 }
                 if other.canJumped = 1{
                     other.dead = 2; //Shell
+                    other.kicked = 0;
+                    other.kickDeadly = 0;
+                    other.canHold = 1;
                 }
             }
         }
@@ -153,20 +163,28 @@ if dead = 2{
     sprite_index = deathSpr1;
     
     if kicked = 0{
-        if collision_rectangle(bbox_left,bbox_top+8,bbox_right,bbox_bottom,trg,false,false){
-            if trg != 0{
-                if trg.x &gt;= self.x{
-                    dir = -1;
-                }
-                if trg.x &lt; self.x{
-                    dir = 1;
+        if c_vspeed &gt;= 0{
+            if collision_rectangle(bbox_left,bbox_top+8,bbox_right,bbox_bottom,trg,false,false){
+                if !keyboard_check(global.p1_b){
+                    if trg != 0{
+                        if trg.x &gt;= self.x{
+                            dir = -1;
+                        }
+                        if trg.x &lt; self.x{
+                            dir = 1;
+                        }
+                        canHold = 0;
+                    }
+                    
+                    kicked = 1;
+                    alarm[1] = 10;
+                } else {
+                    if trg.vspeed &lt;= 0{
+                        holding = 1;
+                    }
                 }
             }
-            
-            kicked = 1;
         }
-        
-        alarm[1] = 10;
     }
 }
 
@@ -175,6 +193,10 @@ if dead = 3{
     c_hspeed = 0;
     image_yscale = -1;
     image_speed = 0;
+}
+
+if y &gt; room_height{
+    instance_destroy();
 }
 
 </string>
@@ -199,7 +221,7 @@ if dead = 3{
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>draw_self();
+            <string>event_inherited();
 
 if obj_debug.infowindow_open{
     draw_sprite_ext(spr_enemy_mask,image_index,x,y,image_xscale,image_yscale,image_angle,c_white,0.5);

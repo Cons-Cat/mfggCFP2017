@@ -83,15 +83,17 @@ if instance_exists(obj_editor_gui){
 
 if (!instance_exists(obj_editor_gui)) || (instance_exists(obj_editor_gui) &amp;&amp; obj_editor_gui.inEditor = 0){
     if holding = 1{
-        if holder.dir1 = 1{
-            x = holder.x+5;
+        if holder != 0{
+            if holder.dir1 = 1{
+                x = holder.x+5;
+            }
+            if holder.dir1 = -1{
+                x = holder.x-5;
+            }
+            
+            image_xscale = holder.dir1;
+            y = holder.y;
         }
-        if holder.dir1 = -1{
-            x = holder.x-5;
-        }
-        
-        image_xscale = holder.dir1;
-        y = holder.y;
     }
 } else {
     holding = 0;
@@ -125,23 +127,71 @@ if abs(c_hspeed) != 0{
 
 //Colliding with other enemies or items
 if item &gt; 0 || enemy = 1{
-    with collision_rectangle(bbox_left,bbox_top,bbox_left+1,bbox_bottom,obj_superparent,false,true){
-        if enemy != 0 || item &gt; 0{
-            other.dir = 1;
-            dir = -1;
-            
+    if (dead != 2) || (dead = 2 &amp;&amp; kicked = 0){
+        with collision_rectangle(bbox_left,bbox_top,bbox_left+1,bbox_bottom,obj_superparent,false,true){
+            if enemy != 0 || item &gt; 0{
+                other.dir = 1;
+                if (dead != 2) || (dead = 2 &amp;&amp; kicked = 0){
+                    dir = -1;
+                }
+            }
         }
-    }
-    with collision_rectangle(bbox_right,bbox_top,bbox_right+1,bbox_bottom,obj_superparent,false,true){
-        if enemy != 0 || item &gt; 0{
-            other.dir = -1;
-            dir = 1;
+        with collision_rectangle(bbox_right,bbox_top,bbox_right+1,bbox_bottom,obj_superparent,false,true){
+            if enemy != 0 || item &gt; 0{
+                other.dir = -1;
+                if (dead != 2) || (dead = 2 &amp;&amp; kicked = 0){
+                    dir = 1;
+                }
+            }
         }
     }
 }
 
+//Wrap around room
+if (x &lt; 0)
+x += room_width;
+else if (x &gt; room_width)
+x -= room_width;
+
 if holding = 0{
     script_execute(scr_cmove_step,1,0);
+}
+
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="8" enumb="0">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///Draws the Sprites
+
+//Draw main sprite
+draw_sprite_ext(sprite_index,image_index,x,y,image_xscale,image_yscale,0,c_white,image_alpha);
+
+//Horizontal wrapping
+if (x &lt; (abs(sprite_width/2)))
+|| (x &gt; room_width-(abs(sprite_width/2))) {
+
+    if (x &lt; (abs(sprite_width/2)))
+        draw_sprite_ext(sprite_index,image_index,x+room_width,y,image_xscale,image_yscale,0,c_white,image_alpha);
+    else if (x &gt; room_width-(abs(sprite_width/2)))
+        draw_sprite_ext(sprite_index,image_index,x-room_width,y,image_xscale,image_yscale,0,c_white,image_alpha);
 }
 
 </string>

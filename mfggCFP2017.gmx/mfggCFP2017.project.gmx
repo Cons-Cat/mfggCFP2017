@@ -64,6 +64,8 @@
         <sprite>sprites\spr_goomba_dead</sprite>
         <sprite>sprites\spr_koopa</sprite>
         <sprite>sprites\spr_koopa_shell</sprite>
+        <sprite>sprites\spr_koopa_red</sprite>
+        <sprite>sprites\spr_koopa_shell_red</sprite>
       </sprites>
     </sprites>
   </sprites>
@@ -115,6 +117,7 @@
     <object>objects\obj_hud</object>
     <object>objects\obj_player</object>
     <objects name="Collision">
+      <object>objects\obj_solid_parent</object>
       <object>objects\obj_solid</object>
       <object>objects\obj_jumpthrough</object>
       <object>objects\par_slope_top</object>
@@ -156,6 +159,7 @@
         <object>objects\obj_enemy_parent</object>
         <object>objects\obj_goomba</object>
         <object>objects\obj_koopa</object>
+        <object>objects\obj_koopa_red</object>
       </objects>
     </objects>
   </objects>

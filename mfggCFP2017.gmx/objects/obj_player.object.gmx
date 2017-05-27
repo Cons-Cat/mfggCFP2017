@@ -374,21 +374,21 @@ if editing = 0{
 //Grabbing items
 if keyboard_check(global.p1_b){
     if dir1 &gt;= 0{
-        with collision_rectangle(x,y-8,x+8,y+8,obj_item_parent,false,false){
+        with collision_rectangle(x,y-8,x+8,y+8,obj_superparent,false,false){
             if canHold = 1{
                 holding = 1;
+                holder = other.id;
+                other.holdingItem = id;
             }
-            holder = other.id;
-            other.holdingItem = id;
         }
     }
     if dir1 &lt; 0{
-        with collision_rectangle(x,y-8,x-8,y+8,obj_item_parent,false,false){
+        with collision_rectangle(x,y-8,x-8,y+8,obj_superparent,false,false){
             if canHold = 1{
                 holding = 1;
+                holder = other.id;
+                other.holdingItem = id;
             }
-            holder = other.id;
-            other.holdingItem = self.id;
         }
     }
 } else { //Throwing items
@@ -397,6 +397,7 @@ if keyboard_check(global.p1_b){
         
         if keyboard_check(global.p1_up){
             holdingItem.c_vspeed = -6-self.c_vspeed;
+            holdingItem.kicked = 0;
         }
         if (c_hspeed != 0) || (c_hspeed = 0 &amp;&amp; !keyboard_check(global.p1_up)){
             holdingItem.c_hspeed = self.dir1*2+self.c_hspeed;

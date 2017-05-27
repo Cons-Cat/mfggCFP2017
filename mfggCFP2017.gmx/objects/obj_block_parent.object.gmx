@@ -28,7 +28,7 @@
             <string>can_col = 1;
 script_execute(scr_cmove_init);
 
-canHold = 1;
+canHold = 0;
 holding = 0;
 held = 0;
 holder = 0;
