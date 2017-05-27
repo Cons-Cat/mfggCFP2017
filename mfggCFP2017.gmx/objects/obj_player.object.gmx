@@ -44,7 +44,10 @@ groundPoundSpd = groundPoundSpdBase;
 groundPoundRaise = 0;
 poundAngle = 0;
 poundCanCancel = 0;
+dir = 0;
 enemy = 0;
+item = 0;
+dead = 0;
 
 //Physics Constants
 phy_walkspeed = 1;

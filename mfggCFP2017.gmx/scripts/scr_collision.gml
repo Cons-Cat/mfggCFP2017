@@ -24,6 +24,7 @@ repeat(2)
    
   if currentsolid_down
   && currentsolid_down.can_col == 1
+  && dead != 3
   {
     if add_y >= 0
     add_y = 0;
@@ -117,6 +118,7 @@ repeat(2)
   //Handle top slope collision
   if collision_rectangle(bbox_left,bbox_bottom-4,bbox_right,bbox_bottom,par_slope_top,1,0) 
   && !collision_rectangle(bbox_left,bbox_bottom-8,bbox_right,bbox_bottom-8,par_slope_top,1,0)
+  && dead != 3
   {
     if add_y >= 0
     add_y = 0;

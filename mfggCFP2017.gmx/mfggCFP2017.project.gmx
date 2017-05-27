@@ -59,8 +59,11 @@
       <sprite>sprites\spr_itemblock</sprite>
       <sprite>sprites\spr_hitblock</sprite>
       <sprites name="Enemies">
+        <sprite>sprites\spr_enemy_mask</sprite>
         <sprite>sprites\spr_goomba</sprite>
         <sprite>sprites\spr_goomba_dead</sprite>
+        <sprite>sprites\spr_koopa</sprite>
+        <sprite>sprites\spr_koopa_shell</sprite>
       </sprites>
     </sprites>
   </sprites>
@@ -152,6 +155,7 @@
       <objects name="Enemies">
         <object>objects\obj_enemy_parent</object>
         <object>objects\obj_goomba</object>
+        <object>objects\obj_koopa</object>
       </objects>
     </objects>
   </objects>

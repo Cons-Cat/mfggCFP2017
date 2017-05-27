@@ -123,6 +123,23 @@ if abs(c_hspeed) != 0{
     }
 }
 
+//Colliding with other enemies or items
+if item &gt; 0 || enemy = 1{
+    with collision_rectangle(bbox_left,bbox_top,bbox_left+1,bbox_bottom,obj_superparent,false,true){
+        if enemy != 0 || item &gt; 0{
+            other.dir = 1;
+            dir = -1;
+            
+        }
+    }
+    with collision_rectangle(bbox_right,bbox_top,bbox_right+1,bbox_bottom,obj_superparent,false,true){
+        if enemy != 0 || item &gt; 0{
+            other.dir = -1;
+            dir = 1;
+        }
+    }
+}
+
 if holding = 0{
     script_execute(scr_cmove_step,1,0);
 }

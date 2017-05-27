@@ -8,6 +8,31 @@
   <parentName>obj_superparent</parentName>
   <maskName>&lt;undefined&gt;</maskName>
   <events>
+    <event eventtype="2" enumb="1">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///Shells now hurt players
+kickDeadly = 1;
+
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
     <event eventtype="2" enumb="0">
       <action>
         <libid>1</libid>
@@ -50,35 +75,70 @@ instance_destroy();
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if dead = 0{
-    if dir = 1{ //Moving right
-        c_hspeed = spd;
+            <string>event_inherited();
+
+if dead = 0 || dead = 2{
+    if dead = 0{
+        if dir = 1{ //Moving right
+            c_hspeed = spd;
+        }
+        if dir = -1{ //Moving right
+            c_hspeed = -spd;
+        }
     }
-    if dir = -1{ //Moving right
-        c_hspeed = -spd;
+    if dead = 2{
+        if kicked = 1{
+            if dir = 1{ //Moving right
+                c_hspeed = kickSpd;
+            }
+            if dir = -1{ //Moving right
+                c_hspeed = -kickSpd;
+            }
+        }
     }
-    image_speed = spd/10;
+    image_xscale = dir;
+    image_speed = c_hspeed/10;
+    
+    with collision_rectangle(bbox_right,bbox_top,bbox_left,bbox_bottom,obj_enemy_parent,false,true){
+        if dead = 2 &amp;&amp; kicked = 1{
+            other.dead = 3;
+            other.c_vspeed = -4;
+            other.y += 16;
+        }
+    }
     
     with collision_rectangle(bbox_left,bbox_top-1,bbox_right,bbox_top,obj_player,false,true){
         if c_vspeed &gt; 0{
-            if keyboard_check(global.p1_a){
-                c_vspeed = -(phy_jumpheight+0.5);
-            } else {
-                c_vspeed = -(phy_jumpheight-1);
+            if (y + sprite_height/2 &lt; other.y+8) || (other.dead = 0){
+                if (other.canJumped = 1 &amp;&amp; other.kicked = 1) || (other.canJumped = 0){
+                    if keyboard_check(global.p1_a){
+                        c_vspeed = -(phy_jumpheight+0.5);
+                    } else {
+                        c_vspeed = -(phy_jumpheight-1);
+                    }
+                   
+                    jumping = 1;
+                    other.trg = self.id;
+                    
+                    other.kicked = 0;
+                    other.kickDeadly = 0;
+                }
+                
+                other.c_hspeed = 0;
+                
+                if other.canJumped = 0{
+                    other.dead = 1; //Death
+                }
+                if other.canJumped = 1{
+                    other.dead = 2; //Shell
+                }
             }
-            jumping = 1;
-        }
-        
-        if other.canJumped = 0{
-            other.dead = 1; //Death
-        }
-        if other.canJumped = 1{
-            other.dead = 2; //Shell
         }
     }
 }
         
 if dead = 1{
+    //Death upon jumping
     c_hspeed = 0;
     image_speed = 0;
     sprite_index = deathSpr1;
@@ -88,8 +148,62 @@ if dead = 1{
         alarm[0] = deathTime;
     }
 }
+if dead = 2{
+    //Hiding into a shell
+    sprite_index = deathSpr1;
+    
+    if kicked = 0{
+        if collision_rectangle(bbox_left,bbox_top+8,bbox_right,bbox_bottom,trg,false,false){
+            if trg != 0{
+                if trg.x &gt;= self.x{
+                    dir = -1;
+                }
+                if trg.x &lt; self.x{
+                    dir = 1;
+                }
+            }
+            
+            kicked = 1;
+        }
+        
+        alarm[1] = 10;
+    }
+}
 
-scr_cmove_step(1,0);
+if dead = 3{
+    //Death by item
+    c_hspeed = 0;
+    image_yscale = -1;
+    image_speed = 0;
+}
+
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="8" enumb="0">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>draw_self();
+
+if obj_debug.infowindow_open{
+    draw_sprite_ext(spr_enemy_mask,image_index,x,y,image_xscale,image_yscale,image_angle,c_white,0.5);
+}
 
 </string>
           </argument>

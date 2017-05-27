@@ -35,6 +35,8 @@ c_gravity = 0.3;
 rise = 0;
 starty = y;
 enemy = 0;
+item = 0;
+dead = 0;
 
 </string>
           </argument>

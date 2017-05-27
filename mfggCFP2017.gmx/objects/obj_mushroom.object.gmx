@@ -34,6 +34,8 @@ holder = 0;
 c_gravity = 0.3;
 starty = y;
 enemy = 0;
+item = 1; //All items should be greater than 0
+dead = 0;
 
 </string>
           </argument>
