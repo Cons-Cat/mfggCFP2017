@@ -68,6 +68,9 @@
         <sprite>sprites\spr_koopa_shell_red</sprite>
       </sprites>
     </sprites>
+    <sprites name="Menus">
+      <sprite>sprites\spr_hud</sprite>
+    </sprites>
   </sprites>
   <backgrounds name="background">
     <background>background\bck_overworld</background>

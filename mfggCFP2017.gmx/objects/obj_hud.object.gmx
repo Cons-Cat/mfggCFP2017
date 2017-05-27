@@ -28,6 +28,10 @@
             <string>//Draws the black box portion of the HUD
 draw_set_color(c_black);
 draw_rectangle(view_xview,view_yview+view_hview-32,view_xview+view_wview,view_yview+view_hview,0);
+draw_sprite(spr_hud,0,0,view_yview[0]+view_hview[0]-32);
+
+draw_sprite(spr_player1_stop,0,48,252);
+
 </string>
           </argument>
         </arguments>
