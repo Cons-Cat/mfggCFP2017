@@ -54,6 +54,7 @@
       <sprite>sprites\spr_edit</sprite>
     </sprites>
     <sprites name="Stage Elements">
+      <sprite>sprites\spr_block_mask</sprite>
       <sprite>sprites\spr_brick</sprite>
       <sprite>sprites\spr_brick_hit</sprite>
       <sprite>sprites\spr_itemblock</sprite>

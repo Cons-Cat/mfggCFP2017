@@ -75,11 +75,9 @@ repeat(2)
   if c_vspeed > 0
   {  
     if current_jt
-    && bbox_bottom < current_jt.yprevious+2
+    && bbox_bottom <= current_jt.yprevious
+    && dead != 3
     {
-    
-      //Stay above the jumpthrough platform
-      y = current_jt.bbox_top-12;
         if pounding = 4{
             pounding = 0;
             poundRotateAlarm = 0;
@@ -181,6 +179,7 @@ repeat(2)
                             c_vspeed = 0;
                         }
                     }
+                    c_vspeed += 0.05;
                 }
             }
         }

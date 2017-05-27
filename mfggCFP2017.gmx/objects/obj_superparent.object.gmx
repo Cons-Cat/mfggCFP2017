@@ -85,18 +85,22 @@ if (!instance_exists(obj_editor_gui)) || (instance_exists(obj_editor_gui) &amp;&
     if holding = 1{
         if holder != 0{
             if holder.dir1 = 1{
-                x = holder.x+5;
+                x = holder.x+6;
             }
             if holder.dir1 = -1{
-                x = holder.x-5;
+                x = holder.x-6;
             }
+            y = holder.y+4;
             
+            depth = -10;
             image_xscale = holder.dir1;
-            y = holder.y;
         }
+    } else {
+        depth = -4;
     }
 } else {
     holding = 0;
+    depth = -4;
     /*if collision_rectangle(x,y,x+16,y+sprite_width,obj_solid,false,false){
         if c_hspeed != 0{
             c_hspeed /= 1.15;
