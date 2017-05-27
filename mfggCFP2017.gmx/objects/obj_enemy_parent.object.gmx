@@ -107,7 +107,9 @@ if dead = 0 || dead = 2{
             }
         }
     }
-    image_xscale = dir;
+    if holding = 0{
+        image_xscale = dir;
+    }
     image_speed = c_hspeed/10;
     
     with collision_rectangle(bbox_right,bbox_top,bbox_left,bbox_bottom,obj_enemy_parent,false,true){
@@ -119,7 +121,7 @@ if dead = 0 || dead = 2{
     
     with collision_rectangle(bbox_left,bbox_top,bbox_right,bbox_top+1,obj_player,false,true){
         if c_vspeed &gt; 0{
-            if (y + sprite_height/2 &lt; other.y+8) || (other.dead = 0){
+            if (y + sprite_height-8 &lt; other.y+8 &amp;&amp; other.kicked = 1) || (other.dead = 0){
                 if (other.canJumped = 1 &amp;&amp; other.kicked = 1) || (other.canJumped = 0) || (other.canJumped = 1 &amp;&amp; other.dead = 0){
                     if keyboard_check(global.p1_a){
                         c_vspeed = -(phy_jumpheight+0.5);
@@ -134,19 +136,20 @@ if dead = 0 || dead = 2{
                 
                 if other.canJumped = 0{
                     other.dead = 1; //Death
-                    holding = 1;
+                    //holding = 1;
                 }
                 if other.canJumped = 1{
                     other.dead = 2; //Shell
                     other.kicked = 0;
                     other.kickDeadly = 0;
                     other.canHold = 1;
+                    holding = 1;
                 }
             }
         }
     }
 }
-        
+
 if dead = 1{
     //Death upon jumping
     c_hspeed = 0;
