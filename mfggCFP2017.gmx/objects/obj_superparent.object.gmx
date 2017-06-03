@@ -32,7 +32,6 @@ holding = 0;
 held = 0;
 holder = 0;
 c_gravity = 0.3;
-
 </string>
           </argument>
         </arguments>
@@ -197,7 +196,6 @@ if (x &lt; (abs(sprite_width/2)))
     else if (x &gt; room_width-(abs(sprite_width/2)))
         draw_sprite_ext(sprite_index,image_index,x-room_width,y,image_xscale,image_yscale,0,c_white,image_alpha);
 }
-
 </string>
           </argument>
         </arguments>

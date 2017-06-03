@@ -511,7 +511,8 @@ if (x &lt; (abs(sprite_width/2)))
 }
 
 //Reset shader
-pal_swap_reset();
+if (global.current_pal &gt; 0)    
+    pal_swap_reset();
 
 //Debug Info
 if obj_debug.infowindow_open

@@ -27,7 +27,6 @@
             <kind>1</kind>
             <string>event_inherited();
 rise = 0;
-
 </string>
           </argument>
         </arguments>
