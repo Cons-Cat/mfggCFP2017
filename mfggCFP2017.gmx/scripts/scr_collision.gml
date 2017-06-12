@@ -135,20 +135,77 @@ repeat(2)
         }
     }
     
-    //steep slope push
-    if (collision_rectangle(bbox_left,bbox_bottom-4,bbox_right,bbox_bottom,obj_slopeR_05x,1,0))
-    && !(collision_rectangle(bbox_left,bbox_bottom-4,bbox_right,bbox_bottom,obj_slopeL_05x,1,0))
+    // BEGIN steep slope push
+    var loc_slope_push = 1; //init the variable for slopepushback speed
+    if (object_index == obj_player) //make sure this applies only to player
     {
-        c_hspeed_slope = -1;
+        if (collision_rectangle(bbox_left,bbox_bottom-4,bbox_right,bbox_bottom,obj_slopeR_05x,1,0))
+        && !(collision_rectangle(bbox_left,bbox_bottom-4,bbox_right,bbox_bottom,obj_slopeL_05x,1,0))
+        {
+            if (abs(max_speed) > abs(c_hspeed - loc_slope_push)) && (round(c_hspeed) - loc_slope_push > 0)
+            {
+                c_hspeed_slope = -loc_slope_push;
+            }
+            else
+            {
+                c_hspeed_slope = 0;
+            }
+        }
+        else if (collision_rectangle(bbox_left,bbox_bottom-4,bbox_right,bbox_bottom,obj_slopeL_05x,1,0))
+        && !(collision_rectangle(bbox_left,bbox_bottom-4,bbox_right,bbox_bottom,obj_slopeR_05x,1,0))
+        {
+            if (abs(max_speed) > abs(c_hspeed + loc_slope_push)) && (round(c_hspeed) + loc_slope_push < 0)
+            {
+                c_hspeed_slope = loc_slope_push;
+            }
+            else
+            {
+                c_hspeed_slope = 0;
+            }
+        }   
+        else
+        {
+            c_hspeed_slope = 0;
+        }
     }
-    else if (collision_rectangle(bbox_left,bbox_bottom-4,bbox_right,bbox_bottom,obj_slopeL_05x,1,0))
-    && !(collision_rectangle(bbox_left,bbox_bottom-4,bbox_right,bbox_bottom,obj_slopeR_05x,1,0))
+    else //cap the horiz speed if it's not the player obj
     {
-        c_hspeed_slope = 1;
-    }
-    else
-    {
-        c_hspeed_slope = 0;
+        if (collision_rectangle(bbox_left,bbox_bottom-4,bbox_right,bbox_bottom,obj_slopeR_05x,1,0))
+        && !(collision_rectangle(bbox_left,bbox_bottom-4,bbox_right,bbox_bottom,obj_slopeL_05x,1,0))
+        {
+            if (c_hspeed > 0) && (round(c_hspeed) - loc_slope_push <> 0)
+            {
+                c_hspeed_slope = -loc_slope_push;
+            }
+            else if (round(c_hspeed) - loc_slope_push <> 0)
+            {
+                c_hspeed -= 0.1;
+            }
+            else
+            {
+                c_hspeed_slope = 0;
+            }
+        }
+        else if (collision_rectangle(bbox_left,bbox_bottom-4,bbox_right,bbox_bottom,obj_slopeL_05x,1,0))
+        && !(collision_rectangle(bbox_left,bbox_bottom-4,bbox_right,bbox_bottom,obj_slopeR_05x,1,0))
+        {
+            if (c_hspeed < 0) && (round(c_hspeed) + loc_slope_push <> 0)
+            {
+                c_hspeed_slope = loc_slope_push;
+            }
+            else if (round(c_hspeed) + loc_slope_push <> 0)
+            {
+                c_hspeed += 0.1;
+            }
+            else
+            {
+                c_hspeed_slope = 0;
+            }
+        }   
+        else
+        {
+            c_hspeed_slope = 0;
+        }
     }
     
   }
@@ -156,6 +213,7 @@ repeat(2)
   {
     c_hspeed_slope = 0;
   }
+  // END steep slope push
   
   //Handle bottom slope collision
   if in_air{

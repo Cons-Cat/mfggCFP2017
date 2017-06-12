@@ -251,13 +251,26 @@ if (not keyboard_check(global.p1_up) &amp;&amp; not keyboard_check(global.p1_dow
 }
 
 //Jumping
-if editing = 0{
-if keyboard_check_pressed(global.p1_a)
-&amp;&amp; not in_air
- {
- jumping = 1;
- c_vspeed = -phy_jumpheight;
- }
+if !(editing)
+{
+    if (keyboard_check_pressed(global.p1_a))
+    &amp;&amp; !(in_air)
+    {
+        //BEGIN steep slope x momentum
+        if (collision_rectangle(bbox_left,bbox_bottom-4,bbox_right,bbox_bottom,obj_slopeR_05x,1,0))
+        &amp;&amp; !(collision_rectangle(bbox_left,bbox_bottom-4,bbox_right,bbox_bottom,obj_slopeL_05x,1,0))
+        {
+            c_hspeed -= 4;
+        }
+        if (collision_rectangle(bbox_left,bbox_bottom-4,bbox_right,bbox_bottom,obj_slopeL_05x,1,0))
+        &amp;&amp; !(collision_rectangle(bbox_left,bbox_bottom-4,bbox_right,bbox_bottom,obj_slopeR_05x,1,0))
+        {
+            c_hspeed += 4;
+        }
+        //END steep slope x momentum
+        jumping = 1;
+        c_vspeed = -phy_jumpheight;
+    }
 }
 
 //Variable Jump
