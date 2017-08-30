@@ -198,12 +198,8 @@ if dead = 3{
     image_speed = 0;
 }
 
-//Vertical wrap
 if y &gt; room_height{
-    if (dead == 3)
-        instance_destroy();
-    else
-        y -= room_height-16;
+    instance_destroy();
 }
 
 </string>
