@@ -116,9 +116,9 @@
   </fonts>
   <objects name="objects">
     <object>objects\obj_superparent</object>
-    <object>objects\obj_palette_init</object>
+    <object>objects\obj_persistent</object>
     <object>objects\obj_debug</object>
-    <object>objects\obj_hud</object>
+    <object>objects\obj_controller</object>
     <object>objects\obj_player</object>
     <objects name="Collision">
       <object>objects\obj_solid_parent</object>

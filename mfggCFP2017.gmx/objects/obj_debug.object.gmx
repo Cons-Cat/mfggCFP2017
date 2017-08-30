@@ -48,7 +48,44 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>//Toggle the "info window"
+            <string>///Set up palette
+
+//Red
+if keyboard_check_pressed(ord('1'))
+    global.current_pal = 0;
+    
+//Green
+else if keyboard_check_pressed(ord('2'))
+    global.current_pal = 1;
+    
+//Yellow
+else if keyboard_check_pressed(ord('3'))
+    global.current_pal = 2;
+    
+//Blue
+else if keyboard_check_pressed(ord('4'))
+    global.current_pal = 3;
+</string>
+          </argument>
+        </arguments>
+      </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///Toggle the "info window"
 if keyboard_check_pressed(ord("I"))
 infowindow_open = 1-infowindow_open;
 </string>

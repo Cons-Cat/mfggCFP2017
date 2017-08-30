@@ -5,7 +5,7 @@
   <visible>-1</visible>
   <depth>-5</depth>
   <persistent>0</persistent>
-  <parentName>self</parentName>
+  <parentName>&lt;undefined&gt;</parentName>
   <maskName>spr_player_mask</maskName>
   <events>
     <event eventtype="0" enumb="0">
@@ -25,51 +25,72 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>scr_cmove_init();
-c_gravity = 0.3;
-image_speed = 0.3;
-dir1 = 1;
-max_speed = 1;
-jumping = 0;
-vertWrap = 208+32;
-raisePixels = 0;
-slopeVOff = 0;
-editing = 0;
-holdingItem = 0;
-pounding = 0;
-poundRotateAlarm = 0;
-poundCounter = 0;
-groundPoundSpdBase = 3;
-groundPoundSpd = groundPoundSpdBase;
-groundPoundRaise = 0;
-poundAngle = 0;
-poundCanCancel = 0;
-dir = 0;
-enemy = 0;
-item = 0;
-dead = 0;
+            <string>///Physics Constants
+phy_walkspeed = 1.75
+phy_runspeed = 2.5
+phy_acceleration = .25
+phy_deceleration = .25
+phy_deceleration_air = .0625
+phy_jumpheight = 5.5
+phy_maxfallspeed = 4
+phy_groundpoundspeed = 4.5
 
-//Physics Constants
-phy_walkspeed = 1;
-phy_runspeed = 2;
-phy_acceleration = .2;
-phy_deceleration = .2;
-phy_deceleration_air = .1;
-phy_jumpheight = 5.5;
-
-phy_editorspeed = 2.2;
-phy_acceleration_editor = .35;
-phy_deceleration_editor = .35;
+phy_editorspeed = 2.2
+phy_acceleration_editor = .35
+phy_deceleration_editor = .35
+</string>
+          </argument>
+        </arguments>
+      </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///Init variables
+scr_cmove_init()
+c_gravity = 0.3
+image_speed = 0.3
+dir1 = 1
+max_speed = 1
+jumping = 0
+vert_wrap = 208+32
+raise_pixels = 0
+slopeVOff = 0 //wtf is this
+editing = 0
+holding_item = 0
+pounding = 0
+poundRotateAlarm = 0
+poundCounter = 0
+groundPoundSpd = 0
+groundPoundRaise = 0
+poundAngle = 0
+poundCanCancel = 0
+dir = 0
+enemy = 0
+item = 0
+dead = 0
 
 //Input Constants (will move these later)
-global.p1_left = vk_left;
-global.p1_right = vk_right;
-global.p1_up = vk_up;
-global.p1_down = vk_down;
+global.p1_left = vk_left
+global.p1_right = vk_right
+global.p1_up = vk_up
+global.p1_down = vk_down
 
-global.p1_a = ord("X");
-global.p1_b = ord("Z");
-global.p1_c = ord("C");
+global.p1_a = ord("X")
+global.p1_b = ord("Z")
+global.p1_c = ord("C")
 
 </string>
           </argument>
@@ -87,7 +108,7 @@ global.p1_c = ord("C");
         <exetype>2</exetype>
         <functionname></functionname>
         <codestring></codestring>
-        <whoName>self</whoName>
+        <whoName>obj_player</whoName>
         <relative>0</relative>
         <isnot>0</isnot>
         <arguments>
@@ -144,20 +165,18 @@ pounding = 4;
           <argument>
             <kind>1</kind>
             <string>///Continue the ground pound animation
-poundRotateAlarm = 0;
-poundAngle -= 45;
+poundRotateAlarm = 0
+poundAngle -= 45
 
-if groundPoundRaise &lt; 2{
-    groundPoundRaise += 0.15;
-    y -= groundPoundRaise;
+if (groundPoundRaise &lt; 2) {
+    groundPoundRaise += 0.15
+    y -= groundPoundRaise
 }
 
-if groundPoundSpd &gt; 1{
-    groundPoundSpd -= 0.3;
-} else {
-    groundPoundSpd = 1;
-}
-
+if (groundPoundSpd &gt; 1)
+    groundPoundSpd -= 0.3
+else
+    groundPoundSpd = 1
 </string>
           </argument>
         </arguments>
@@ -174,47 +193,46 @@ if groundPoundSpd &gt; 1{
         <exetype>2</exetype>
         <functionname></functionname>
         <codestring></codestring>
-        <whoName>self</whoName>
+        <whoName>obj_player</whoName>
         <relative>0</relative>
         <isnot>0</isnot>
         <arguments>
           <argument>
             <kind>1</kind>
             <string>//Determining physics values
-if room = rm_editor{
-    if obj_editor_gui.inEditor = 1{
-        editing = 1;
-    } else {
-        editing = 0;
-    }
+if (room = rm_editor) {
+    if (obj_editor_gui.inEditor)
+        editing = 1
+    else
+        editing = 0
 }
 
-if editing = 1{
-    phy_acceleration_imp = phy_acceleration_editor;
-    phy_deceleration_imp = phy_deceleration_editor;
-    max_speed = phy_editorspeed;
+if (editing) {
+    phy_acceleration_imp = phy_acceleration_editor
+    phy_deceleration_imp = phy_deceleration_editor
+    max_speed = phy_editorspeed
 } else {
-    phy_acceleration_imp = phy_acceleration;
-    phy_deceleration_imp = phy_deceleration;
+    phy_acceleration_imp = phy_acceleration
+    phy_deceleration_imp = phy_deceleration
 }
 
 //Movement
-if pounding = 0 {
-if keyboard_check(global.p1_left)
-&amp;&amp; not keyboard_check(global.p1_right)
-c_hspeed = max(c_hspeed-phy_acceleration_imp,-max_speed);
-
-if keyboard_check(global.p1_right)
-c_hspeed = min(c_hspeed+phy_acceleration_imp,max_speed);
-
-if editing = 1{
- if keyboard_check(global.p1_up)
- &amp;&amp; not keyboard_check(global.p1_down)
- c_vspeed = max(c_vspeed-phy_acceleration_imp,-max_speed);
- 
- if keyboard_check(global.p1_down)
- c_vspeed = min(c_vspeed+phy_acceleration_imp,max_speed);
-}
+if (!pounding) {
+    if keyboard_check(global.p1_left)
+    &amp;&amp; not keyboard_check(global.p1_right)
+        c_hspeed = max(c_hspeed-phy_acceleration_imp, -max_speed)
+    
+    if keyboard_check(global.p1_right)
+        c_hspeed = min(c_hspeed+phy_acceleration_imp, max_speed)
+    
+    if (editing) {
+        if keyboard_check(global.p1_up)
+        &amp;&amp; not keyboard_check(global.p1_down)
+            c_vspeed = max(c_vspeed-phy_acceleration_imp, -max_speed)
+     
+        if keyboard_check(global.p1_down)
+            c_vspeed = min(c_vspeed+phy_acceleration_imp, max_speed)
+    }
 }
 
 //Stopping
@@ -287,12 +305,12 @@ jumping = 0;
 if pounding = 0{
     if in_air{ //Activate ground pound
         if keyboard_check_pressed(global.p1_down){
-            if holdingItem = 0{
+            if holding_item = 0{
                 pounding = 1;
             }
         }
     }
-    groundPoundSpd = groundPoundSpdBase;
+    groundPoundSpd = phy_groundpoundspeed;
     groundPoundRaise = 0;
     poundAngle = 0;
     poundCanCancel = 0;
@@ -359,7 +377,8 @@ if editing = 0{
 }
 
 //Vertical Speed Cap
-c_vspeed = min(c_vspeed,6);
+if (!pounding)
+    c_vspeed = min(c_vspeed, phy_maxfallspeed)
 
 //Wrap around room
 if (x &lt; 0)
@@ -372,7 +391,7 @@ if editing = 0{
  {
    //Add here top-boundary penalty.
  }
- else if y &gt; vertWrap
+ else if y &gt; vert_wrap
      y = -16;
 } else {
  if y &lt; 32+12{
@@ -391,7 +410,7 @@ if keyboard_check(global.p1_b){
             if canHold = 1{
                 holding = 1;
                 holder = other.id;
-                other.holdingItem = id;
+                other.holding_item = id;
             }
         }
     }
@@ -400,25 +419,25 @@ if keyboard_check(global.p1_b){
             if canHold = 1{
                 holding = 1;
                 holder = other.id;
-                other.holdingItem = id;
+                other.holding_item = id;
             }
         }
     }
 } else { //Throwing items
-    if self.holdingItem != 0{
-        holdingItem.dir1 = self.dir1;
+    if self.holding_item != 0{
+        holding_item.dir1 = self.dir1;
         
         if keyboard_check(global.p1_up){
-            holdingItem.c_vspeed = -6-self.c_vspeed;
-            holdingItem.kicked = 0;
+            holding_item.c_vspeed = -6-self.c_vspeed;
+            holding_item.kicked = 0;
         }
         if (c_hspeed != 0) || (c_hspeed = 0 &amp;&amp; !keyboard_check(global.p1_up)){
-            holdingItem.c_hspeed = self.dir1*2+self.c_hspeed;
+            holding_item.c_hspeed = self.dir1*2+self.c_hspeed;
         }
         
-        holdingItem.holding = 0;
-        holdingItem.holder = 0;
-        holdingItem = 0;
+        holding_item.holding = 0;
+        holding_item.holder = 0;
+        holding_item = 0;
     }
 }
 
@@ -468,7 +487,7 @@ if editing = 0{
     }
 }
 
-if holdingItem != 0{
+if holding_item != 0{
     if sprite_index = spr_player1_stop{
         sprite_index = spr_player1_stop_hold;
     }
